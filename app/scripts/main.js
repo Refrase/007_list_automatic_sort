@@ -5,6 +5,11 @@ $(document).ready(function() {
 	var name;
 	var team;
 
+	// Autovælg navneinput
+	var nameInput = document.getElementById('rytterNavn');
+	nameInput.focus();
+	nameInput.select();
+
 	// Byg rytter værdier ud fra indtstning i inputs
 	var tilfojRytter = function() {
 		name = $( '#rytterNavn' ).val();
@@ -34,6 +39,12 @@ $(document).ready(function() {
 				rytterHoldInput.prop('selectedIndex', 0);
 			};
 
+			// Vælg navne-input igen
+			var selectNameInput = function() {
+				rytterNavnInput.focus();
+				rytterNavnInput.select();
+			};
+
 			// Gem kategori checkboxes i variabler
 			var tempo = $( '#tempo' );
 			var sprint = $( '#sprint' );
@@ -44,16 +55,19 @@ $(document).ready(function() {
 				$( '#tempoGrp' ).append( rytter );
 				resetInputs();
 				tempo.prop('checked', false);
+				selectNameInput();
 			}
 			else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
 				$( '#sprintGrp' ).append( rytter );
 				resetInputs();
 				sprint.prop('checked', false);
+				selectNameInput();
 			}
 			else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
 				$( '#bjergGrp' ).append( rytter );
 				resetInputs();
 				bjerg.prop('checked', false);
+
 			} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
 				$('.header').append('<h4 class="alert alert-warning">Du skal lige udfylde flere felter, du!</h4>');
 				$('.alert').delay(3000).fadeOut();
