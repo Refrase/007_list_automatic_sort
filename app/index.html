@@ -2,14 +2,14 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title>007_list_automatic_sort</title>
+    <title>Tour Manager | Ryttergrupper</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="http://localhost:9000/favicon.ico?v=3">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -25,50 +25,95 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-
     <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">007_list_automatic_sort</h3>
-      </div>
 
-      <div class="jumbotron">
-        <h1>'Allo, 'Allo!</h1>
-        <p class="lead">Always a pleasure scaffolding your apps.</p>
-        <p><a class="btn btn-lg btn-success" href="#">Splendid! <span class="glyphicon glyphicon-ok"></span></a></p>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>HTML5 Boilerplate</h4>
-          <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
-
-          <h4>Sass</h4>
-          <p>Sass is a mature, stable, and powerful professional grade CSS extension language.</p>
-
-
-          <h4>Bootstrap</h4>
-          <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
-
-          <h4>Modernizr</h4>
-          <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
-
+      <div class="row">
+        <div class="header col-xs-12 col-sm-6">
+          <h1 class="headline">Tour Manager 2015</h1>
+          <h3>Ryttergrupper</h3>
         </div>
       </div>
 
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      <div class="row">
+        <div class="inputs col-xs-12 col-sm-6">
+          <input type="text" id="rytterNavn" class="col-xs-6" placeholder="Efternavn" />
+          <select id="rytterHold" class="col-xs-6">
+            <option value="Hold" disabled selected>Hold</option>
+            <option value="AG2R">AG2R</option>
+            <option value="Astana">Astana</option>
+            <option value="BMC">BMC</option>
+            <option value="Bora-Argon">Bora-Argon</option>
+            <option value="Bretagne">Bretagne</option>
+            <option value="Cannondale">Cannondale</option>
+            <option value="Cofidis">Cofidis</option>
+            <option value="Europcar">Europcar</option>
+            <option value="FDJ">FDJ</option>
+            <option value="Giant">Giant</option>
+            <option value="IAM">IAM</option>
+            <option value="Katusha">Katusha</option>
+            <option value="Lampre">Lampre</option>
+            <option value="Lotto">Lotto</option>
+            <option value="LottoNL">LottoNL</option>
+            <option value="Movistar">Movistar</option>
+            <option value="Orica GE">Orica GE</option>
+            <option value="Qhubeka">Qhubeka</option>
+            <option value="Quick Step">Quick Step</option>
+            <option value="Sky">Sky</option>
+            <option value="Tinkoff-Saxo">Tinkoff-Saxo</option>
+            <option value="Trek">Trek</option>
+          </select>
+   <!--   <input type="text" id="rytterHold" class="col-xs-6" placeholder="Hold" /> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="checkboxes col-xs-12 col-sm-6">
+          <label class="col-xs-4"><input type="radio" id="tempo" name="rytter-kat"> Tempo</label>
+          <label class="col-xs-4"><input type="radio" id="sprint" name="rytter-kat"> Sprint</label>
+          <label class="col-xs-4"><input type="radio" id="bjerg" name="rytter-kat"> Bjerg</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 rytter-data">
+          <ul class="rytter-data-grp">
+            <h4 id="tempoGrpTitle" class="rytter-data-grp_title"><i class="fa fa-clock-o"></i>
+             Tempospecialister
+            </h4>
+            <ul id="tempoGrp"></ul>
+          </ul>
+          <ul class="rytter-data-grp">
+            <h4 id="sprintGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-right"></i>
+             Sprintere
+            </h4>
+            <ul id="sprintGrp"></ul>
+          </ul>
+          <ul class="rytter-data-grp">
+            <h4 id="bjergGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-up"></i>
+             Bjergryttere
+            </h4>
+            <ul id="bjergGrp"></ul>
+          </ul>
+        </div>
       </div>
 
     </div>
 
-
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -82,8 +127,8 @@
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
 
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
