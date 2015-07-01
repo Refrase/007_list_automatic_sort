@@ -105,7 +105,7 @@ $(document).ready(function() {
 				bjerg.prop('checked', false);
 
 			} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
-				$('.header').append('<h4 class="alert alert-warning">Du skal lige udfylde flere felter, du!</h4>');
+				$('.alerts').append('<h4 class="alert alert-warning col-sm-6">Udfyld lige alle felter, du!</h4>');
 				$('.alert').delay(3000).fadeOut();
 			}
 		}
@@ -113,10 +113,10 @@ $(document).ready(function() {
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
 	var showEnterAlert = true; // Sættes til 'false' når rytter tilføjes med tryk på enter (se længere oppe)
-	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #bjerg' ).change( function() {
+	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #bjerg' ).on('change', function() {
 		if ( rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 && $('.checkboxes input:radio:checked').length > 0 ) {
 			if ( showEnterAlert === true ) {
-				$('.header').append('<h4 class="alert alert-warning">Hit enter!</h4>');
+				$('.alerts').append('<h4 class="alert alert-warning col-sm-6">Hit enter!</h4>');
 			}
 		}
 		$('.alert').delay(3000).fadeOut();
