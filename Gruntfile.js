@@ -335,6 +335,11 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= config.dist %>'
+        }, {
+          expand: true,
+          cwd: '.',
+          src: 'bower_components/font-awesome/fonts/*',
+          dest: '<%= config.dist %>'
         }]
       },
       styles: {
@@ -345,6 +350,7 @@ module.exports = function (grunt) {
         src: '{,*/}*.css'
       }
     },
+
 
     // Generates a custom Modernizr build that includes only the tests you
     // reference in your app

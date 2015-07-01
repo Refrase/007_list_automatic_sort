@@ -2,60 +2,75 @@ $(document).ready(function() {
 
 	'use strict';
 
-	// var Firebase = require('firebase');
-	// var firebaseURL = 'https://glaring-torch-9804.firebaseio.com/';
-	// var databRef = new Firebase( firebaseURL );
-	// // var ryttereRef = databRef.child( 'ryttere' );
+  var firebaseURL = 'https://glaring-torch-9804.firebaseio.com/';
+  var databRef = new Firebase( firebaseURL );
+  // Sæt referencer op til de forskellige grene af databasen
+  var ryttereTempoRef = databRef.child( 'ryttere/tempo' );
+  var ryttereSprintRef = databRef.child( 'ryttere/sprint' );
+  var ryttereBjergRef = databRef.child( 'ryttere/bjerg' );
 
-	// databRef.set({
-	// 	ryttere: {
-	// 		tempo: {
-	// 			tempo1: {
-	// 				navn: 'Martin',
-	// 				hold: 'Quick Step'
-	// 			}
-	// 		},
-	// 		sprint: {
-	// 			sprint1: {
-	// 				navn: 'Matthews',
-	// 				hold: 'Orica GE'
-	// 			}
-	// 		},
-	// 		bjerg: {
-	// 			bjerg1: {
-	// 				navn: 'Contador',
-	// 				hold: 'Tinkoff-Saxo'
-	// 			}
-	// 		}
-	// 	}
-	// });
+	// Byg rytter værdier ud fra indtastning i inputs
+	var bygRytter = function(navn, hold) {
+		var rytterHTML = '<li>' + navn;
+		var delBtn = ' <span id="sletRytter"><i class="fa fa-remove"></i></span>';
+		if ( hold !== '' ) { rytterHTML += ', ' + hold + delBtn + '</li>'; }
+		else { rytterHTML += delBtn + '</li>'; }
+		return rytterHTML;
+	};
 
-	var name;
-	var team;
+	// Hent al data i Firebase databasen
+	// Hent tempo ryttere
+	ryttereTempoRef.once('value', function(snapshot) { // ryttereTempoRef sat højere oppe
+	  snapshot.forEach(function(childSnapshot) {
+	  	// Hent key for hver (navnet)
+	  	var navn = childSnapshot.key();
+	  	// Hent values for hver
+	  	var rytterData = childSnapshot.val();
+	  	// ... og træk holdet ud af den data
+	  	var hold = rytterData.hold;
+			// Byg rytter HTML
+			var rytter = bygRytter(navn, hold);
+			// Append til tempo-gruppen
+			$( '#tempoGrp' ).append( rytter );
+	  });
+	}, function (errorObject) {
+	  console.log('The read failed: ' + errorObject.code);
+	});
+
+	// Hent sprint ryttere
+	ryttereSprintRef.once('value', function(snapshot) {
+	  snapshot.forEach(function(childSnapshot) {
+	  	var navn = childSnapshot.key();
+	  	var rytterData = childSnapshot.val();
+	  	var hold = rytterData.hold;
+			var rytter = bygRytter(navn, hold);
+			$( '#sprintGrp' ).append( rytter );
+	  });
+	}, function (errorObject) {
+	  console.log('The read failed: ' + errorObject.code);
+	});
+
+	// Hent bjerg ryttere
+	ryttereBjergRef.once('value', function(snapshot) {
+	  snapshot.forEach(function(childSnapshot) {
+	  	var navn = childSnapshot.key();
+	  	var rytterData = childSnapshot.val();
+	  	var hold = rytterData.hold;
+			var rytter = bygRytter(navn, hold);
+			$( '#bjergGrp' ).append( rytter );
+	  });
+	}, function (errorObject) {
+	  console.log('The read failed: ' + errorObject.code);
+	});
+
+	//
+	var navn;
+	var hold;
 
 	// Autovælg navneinput
 	var nameInput = document.getElementById('rytterNavn');
 	nameInput.focus();
 	nameInput.select();
-
-	// Byg rytter værdier ud fra indtstning i inputs
-	var tilfojRytter = function() {
-		name = $( '#rytterNavn' ).val();
-		team = $( '#rytterHold' ).val();
-
-		// Filtrer input, så første bogstav bliver stort, resten småt
-		var titelCase = function(txt) {
-		  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-		};
-		name = titelCase( name );
-
-		console.log();
-		var rytterHTML = '<li>' + name;
-		var delBtn = ' <span id="sletRytter"><i class="fa fa-remove"></i></span>';
-		if ( team !== '' ) { rytterHTML += ', ' + team + delBtn + '</li>'; }
-		else { rytterHTML += delBtn + '</li>'; }
-		return rytterHTML;
-	};
 
 	// Gem inputs i variabler
 	var rytterNavnInput = $( '#rytterNavn' );
@@ -80,30 +95,49 @@ $(document).ready(function() {
 
 	// Tilføj rytter ved tryk på enter
 	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #bjerg' ).keyup( function(e) {
+		navn = $( '#rytterNavn' ).val();
+		hold = $( '#rytterHold' ).val();
+
+		// Filtrer input, så første bogstav bliver stort, resten småt
+		var titelCase = function(txt) {
+		  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+		};
+		navn = titelCase( navn );
+
 		// Når der trykkes enter i inputs...
 		if ( e.keycode === 13 || e.which === 13 ) {
 			// Dan HTML for en rytter
-			var rytter = tilfojRytter();
+			var rytter = bygRytter(navn, hold);
 			showEnterAlert = false;
 
 			// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
 			if ( tempo.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
 				$( '#tempoGrp' ).append( rytter );
+				// Send til Firebase. Child-node til tempo referencen (sat længere op) sættes med rytters navn og denne får hold som child
+	      ryttereTempoRef.child( navn ).set({ // 'navn' og 'hold' dannes i funktionen bygRytter
+          hold: hold
+	      });
 				resetInputs();
 				tempo.prop('checked', false);
 				selectNameInput();
 			}
 			else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
 				$( '#sprintGrp' ).append( rytter );
+	      ryttereSprintRef.child( navn ).set({
+          hold: hold
+	      });
 				resetInputs();
 				sprint.prop('checked', false);
 				selectNameInput();
 			}
 			else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
 				$( '#bjergGrp' ).append( rytter );
+	      ryttereBjergRef.child( navn ).set({
+          hold: hold
+	      });
 				resetInputs();
 				bjerg.prop('checked', false);
-
+				selectNameInput();
 			} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
 				$('.alerts').append('<h4 class="alert alert-warning col-sm-6">Udfyld lige alle felter, du!</h4>');
 				$('.alert').delay(3000).fadeOut();
@@ -127,8 +161,11 @@ $(document).ready(function() {
 		$( this ).closest('li').remove();
 	});
 
-	// Sortérbar
-	$( '#tempoGrp, #sprintGrp, #bjergGrp' ).sortable();
+	// Sortérbar [jQuery UI]
+	$( '#tempoGrp, #sprintGrp, #bjergGrp' ).sortable({
+		// connectWith: '.connectedSortable'
+		// Implementér sortering mellem grupper, når det er sat op med Firebase
+	});
 
 
 

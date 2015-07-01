@@ -31,6 +31,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
+    "angularfire": "^1.1.2",
     "firebase": "^2.2.7"
   }
 }
