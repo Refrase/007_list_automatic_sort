@@ -11,10 +11,16 @@ $dist-m: 	16px;
 $dist-s: 	8px;
 $dist-xs: 	4px;
 
-*, html, body, h1, h2, h3, h4, h5, h6, p, a, span, .checkbox {
+*, html, body, h1, h2, h3, h4, h5, h6, p, a, span, .checkbox, in {
   margin: 0;
   padding: 0;
+  color: #333;
 	font-family: 'Dosis', sans-serif; }
+
+::-webkit-input-placeholder { color: #333; }
+:-moz-placeholder { color: #333; }
+::-moz-placeholder { color: #333; }
+:-ms-input-placeholder { color: #333; }
 
 h1 { font-weight: 700; margin: $dist-m 0; }
 
@@ -25,35 +31,64 @@ li { padding: $dist-s; position: relative; }
 label { font-weight: normal; padding: $dist-s; }
 
 .headline { margin-top: $dist-xl; }
-
 .header h3 { margin-bottom: $dist-l; }
+
+input[type="radio"],
+select, { // Remove default styling
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none; }
 
 .inputs input,
 .inputs select {
+	background: #fff;
 	padding: $dist-s;
 	border: none; }
 
-.inputs select { margin-top: $dist-s; }
+.checkboxes input:focus,
+.inputs input:focus,
+.inputs select:focus {
+	outline: none; } // Remove default styling
 
-.checkboxes label { margin-bottom: $dist-l; background: #eee;  padding-left: $dist-s; }
+.inputs select { border-radius: 0; }
+
+.checkboxes label {
+	cursor: pointer;
+	margin-bottom: $dist-l;
+	border-top: 1px solid #ededed;
+	border-bottom: 2px solid #ededed;
+	background: #fff;
+	padding-left: $dist-l; }
+
+input[type=radio] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  left: 8px;
+  bottom: 9px;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid #ccc; }
+
+input[type=radio]:checked {
+	// border: 4px solid #fff;
+  background: #ddd;
+  box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(255, 255, 255, .8) }
 
 .fa { text-align: right; width: 20px; padding-right: $dist-s; }
 
 .rytter-data li:nth-child(odd) { background: #f4f4f4; }
-
 .rytter-data-grp { margin-bottom: $dist-l; }
-
 .rytter-data-grp li { cursor: move; }
-
 .rytter-data-grp_title { padding: $dist-s; }
-#tempoGrpTitle { color: #aaa; }
-#sprintGrpTitle { color: #6aaf6a; }
-#bjergGrpTitle { color: #CD5555; }
+#tempoGrpTitle, #tempoGrpTitle i { color: #aaa; }
+#sprintGrpTitle, #sprintGrpTitle i { color: #6aaf6a; }
+#bjergGrpTitle, #bjergGrpTitle i { color: #CD5555; }
 
-#sletRytter {
+#sletRytter  {
 	position: absolute;
 	background: #CD5555;
-	color: #ab2121;
 	right: 0;
 	top: 0;
 	padding: 0 4px 0 12px;
@@ -62,8 +97,10 @@ label { font-weight: normal; padding: $dist-s; }
 	padding-top: 11px;
 	cursor: pointer;
 	transition: all 0.4s cubic-bezier(0.1, 0.8, 0.2, 0.95); }
-
+#sletRytter i { color: #ab2121; }
 #sletRytter:hover { padding-right: 16px; }
 
+@media (max-width: 768px) { .inputs select { 	border-left: 1px solid #ededed; } }
 
+@media (min-width: 768px) { .rytter-data-grp { padding-right: 0; } }
 

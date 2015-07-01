@@ -35,9 +35,9 @@
       </div>
 
       <div class="row">
-        <div class="inputs col-xs-12 col-sm-6">
+        <div class="inputs col-xs-12 col-sm-9">
           <input type="text" id="rytterNavn" class="col-xs-6" placeholder="Efternavn" />
-          <select id="rytterHold" class="col-xs-6">
+          <select id="rytterHold" class="col-xs-6 col-sm-7">
             <option value="Hold" disabled selected>Hold</option>
             <option value="AG2R">AG2R</option>
             <option value="Astana">Astana</option>
@@ -66,33 +66,39 @@
         </div>
       </div>
       <div class="row">
-        <div class="checkboxes col-xs-12 col-sm-6">
-          <label class="col-xs-4"><input type="radio" id="tempo" name="rytter-kat"> Tempo</label>
-          <label class="col-xs-4"><input type="radio" id="sprint" name="rytter-kat"> Sprint</label>
-          <label class="col-xs-4"><input type="radio" id="bjerg" name="rytter-kat"> Bjerg</label>
+        <div class="checkboxes col-xs-12 col-sm-9">
+          <label class="col-xs-4 col-sm-2"><input type="radio" id="tempo" name="rytter-kat"> <span>Tempo</span></label>
+          <label class="col-xs-4 col-sm-2"><input type="radio" id="sprint" name="rytter-kat"> <span>Sprint</span></label>
+          <label class="col-xs-4 col-sm-2"><input type="radio" id="bjerg" name="rytter-kat"> <span>Bjerg</span></label>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-sm-6 rytter-data">
-          <ul class="rytter-data-grp">
-            <h4 id="tempoGrpTitle" class="rytter-data-grp_title"><i class="fa fa-clock-o"></i>
-             Tempospecialister
-            </h4>
-            <ul id="tempoGrp"></ul>
-          </ul>
-          <ul class="rytter-data-grp">
-            <h4 id="sprintGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-right"></i>
-             Sprintere
-            </h4>
-            <ul id="sprintGrp"></ul>
-          </ul>
-          <ul class="rytter-data-grp">
-            <h4 id="bjergGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-up"></i>
-             Bjergryttere
-            </h4>
-            <ul id="bjergGrp"></ul>
-          </ul>
+        <div class="col-xs-12 col-sm-9 rytter-data">
+          <div class="row">
+            <ul class="rytter-data-grp col-sm-6">
+              <h4 id="tempoGrpTitle" class="rytter-data-grp_title"><i class="fa fa-clock-o"></i>
+               Tempospecialister
+              </h4>
+              <ul id="tempoGrp"></ul>
+            </ul>
+          </div>
+          <div class="row">
+            <ul class="rytter-data-grp col-sm-6">
+              <h4 id="sprintGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-right"></i>
+               Sprintere
+              </h4>
+              <ul id="sprintGrp"></ul>
+            </ul>
+          </div>
+          <div class="row">
+            <ul class="rytter-data-grp col-sm-6">
+              <h4 id="bjergGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-up"></i>
+               Bjergryttere
+              </h4>
+              <ul id="bjergGrp"></ul>
+            </ul>
+          </div>
         </div>
       </div>
 
