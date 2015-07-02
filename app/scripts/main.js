@@ -93,7 +93,7 @@ $(document).ready(function() {
 		rytterNavnInput.select();
 	};
 
-	var tilfojRytter = function() {
+	var tilfojRytter = function(navn, hold) {
 		// Dan HTML for en rytter
 		var rytter = bygRytter(navn, hold);
 		// Nu er en rytter tilføjet så slå alert, om at man kan trykke enter, fra
@@ -133,28 +133,31 @@ $(document).ready(function() {
 		}
 	};
 
+	// Filtrer input, så første bogstav bliver stort, resten småt
+	var titelCase = function(txt) {
+	  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	};
+
 	// Tilføj rytter ved tryk på enter
 	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #bjerg' ).keyup( function(e) {
 		navn = $( '#rytterNavn' ).val();
-		hold = $( '#rytterHold' ).val();
-
-		// Filtrer input, så første bogstav bliver stort, resten småt
-		var titelCase = function(txt) {
-		  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-		};
 		navn = titelCase( navn );
+		hold = $( '#rytterHold' ).val();
 
 		// Når der trykkes enter i inputs...
 		if ( e.keycode === 13 || e.which === 13 ) {
-			tilfojRytter();
+			tilfojRytter(navn, hold);
 		}
-		// Mobil: Tilføj ved tryk på knap 'Tilføj rytter'
-		$( '#btnTilfojMobil' ).on('click', function () {
-			tilfojRytter();
-		});
 	});
 
+	// Mobil: Tilføj ved tryk på knap 'Tilføj rytter'
+	$( '#btnTilfojMobil' ).on('click', function () {
+		navn = $( '#rytterNavn' ).val();
+		navn = titelCase( navn );
+		hold = $( '#rytterHold' ).val();
 
+		tilfojRytter(navn, hold);
+	});
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
 	var showEnterAlert = true; // Sættes til 'false' når rytter tilføjes med tryk på enter (se længere oppe)
@@ -180,6 +183,12 @@ $(document).ready(function() {
 		// Slet rytter fra Firebase
 		if ( rytterGrpId === 'tempoGrp' ) {
 			ryttereTempoRef.child(rytterNavn).remove();
+		}
+		else if ( rytterGrpId === 'sprintGrp' ) {
+			ryttereSprintRef.child(rytterNavn).remove();
+		}
+		else if ( rytterGrpId === 'bjergGrp' ) {
+			ryttereBjergRef.child(rytterNavn).remove();
 		}
 	});
 
