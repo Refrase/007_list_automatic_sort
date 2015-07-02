@@ -12,16 +12,25 @@ $dist-m: 	16px;
 $dist-s: 	8px;
 $dist-xs: 	4px;
 
+$clr_rod1: #CD5555;
+$clr_rod2: #ab2121;
+$clr_bla1: #428bca;
+$clr_bla2: #214565;
+$clr_gra1: #aaa;
+$clr_gra2: #333;
+$clr_gro1: #6aaf6a;
+
+
 *, html, body, h1, h2, h3, h4, h5, h6, p, a, span, .checkbox, in {
   margin: 0;
   padding: 0;
-  color: #333;
+  color: $clr_gra2;
 	font-family: 'Dosis', sans-serif; }
 
-::-webkit-input-placeholder { color: #333; }
-:-moz-placeholder { color: #333; }
-::-moz-placeholder { color: #333; }
-:-ms-input-placeholder { color: #333; }
+::-webkit-input-placeholder { color: $clr_gra2; }
+:-moz-placeholder { color: $clr_gra2; }
+::-moz-placeholder { color: $clr_gra2; }
+:-ms-input-placeholder { color: $clr_gra2; }
 
 h1 { font-weight: 700; margin: $dist-m 0; }
 
@@ -55,7 +64,6 @@ select, { // Remove default styling
 
 .checkboxes label {
 	cursor: pointer;
-	margin-bottom: $dist-l;
 	border-top: 1px solid #ededed;
 	border-bottom: 1px solid #ededed;
 	background: #fff;
@@ -76,19 +84,29 @@ input[type=radio]:checked {
   background: #ddd;
   box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, .2), 0px 1px 1px 0px rgba(255, 255, 255, .8) }
 
+.btn-tilfoj-mobil {
+	width: 100%;
+	color: #999;
+	background: #ededed;
+	border-radius: 0;
+	margin-top: -6px;
+	margin-bottom: $dist-l; }
+
+.btn-tilfoj-mobil:hover { background: #dedede; 	color: #999; }
+
 .fa { text-align: right; width: 20px; padding-right: $dist-s; }
 
 .rytter-data li:nth-child(odd) { background: #f4f4f4; }
 .rytter-data-grp { margin-bottom: $dist-l; }
 .rytter-data-grp li { cursor: move; }
 .rytter-data-grp_title { padding: $dist-s; }
-#tempoGrpTitle, #tempoGrpTitle i { color: #aaa; }
-#sprintGrpTitle, #sprintGrpTitle i { color: #6aaf6a; }
-#bjergGrpTitle, #bjergGrpTitle i { color: #CD5555; }
+#tempoGrpTitle, #tempoGrpTitle i { color: $clr_gra1; }
+#sprintGrpTitle, #sprintGrpTitle i { color: $clr_gro1; }
+#bjergGrpTitle, #bjergGrpTitle i { color: $clr_rod1; }
 
 #sletRytter  {
 	position: absolute;
-	background: #CD5555;
+	background: $clr_rod1;
 	right: 0;
 	top: 0;
 	padding: 0 4px 0 12px;
@@ -97,10 +115,13 @@ input[type=radio]:checked {
 	padding-top: 11px;
 	cursor: pointer;
 	transition: all 0.4s cubic-bezier(0.1, 0.8, 0.2, 0.95); }
-#sletRytter i { color: #ab2121; }
+#sletRytter i { color: $clr_rod2; }
 #sletRytter:hover { padding-right: 16px; }
 
-@media (max-width: 768px) { .inputs select { 	border-left: 1px solid #ededed; } }
+@media (max-width: 768px) {
+	.inputs select { 	border-left: 1px solid #ededed; } }
 
-@media (min-width: 768px) { .rytter-data-grp { padding-right: 0; } }
+@media (min-width: 768px) {
+	.rytter-data-grp { padding-right: 0; }
+	.checkboxes label { margin-bottom: $dist-l; } }
 

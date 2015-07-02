@@ -93,6 +93,45 @@ $(document).ready(function() {
 		rytterNavnInput.select();
 	};
 
+	var tilfojRytter = function() {
+		// Dan HTML for en rytter
+		var rytter = bygRytter(navn, hold);
+		showEnterAlert = false;
+
+		// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
+		if ( tempo.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
+			$( '#tempoGrp' ).append( rytter );
+			// Send til Firebase. Child-node til tempo referencen (sat længere op) sættes med rytters navn og denne får hold som child
+      ryttereTempoRef.child( navn ).set({ // 'navn' og 'hold' dannes i funktionen bygRytter
+        hold: hold
+      });
+			resetInputs();
+			tempo.prop('checked', false);
+			selectNameInput();
+		}
+		else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
+			$( '#sprintGrp' ).append( rytter );
+      ryttereSprintRef.child( navn ).set({
+        hold: hold
+      });
+			resetInputs();
+			sprint.prop('checked', false);
+			selectNameInput();
+		}
+		else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
+			$( '#bjergGrp' ).append( rytter );
+      ryttereBjergRef.child( navn ).set({
+        hold: hold
+      });
+			resetInputs();
+			bjerg.prop('checked', false);
+			selectNameInput();
+		} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
+			$('.alerts').append('<h4 class="alert alert-warning col-sm-6">Udfyld lige alle felter, du!</h4>');
+			$('.alert').delay(3000).fadeOut();
+		}
+	};
+
 	// Tilføj rytter ved tryk på enter
 	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #bjerg' ).keyup( function(e) {
 		navn = $( '#rytterNavn' ).val();
@@ -106,43 +145,13 @@ $(document).ready(function() {
 
 		// Når der trykkes enter i inputs...
 		if ( e.keycode === 13 || e.which === 13 ) {
-			// Dan HTML for en rytter
-			var rytter = bygRytter(navn, hold);
-			showEnterAlert = false;
-
-			// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
-			if ( tempo.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-				$( '#tempoGrp' ).append( rytter );
-				// Send til Firebase. Child-node til tempo referencen (sat længere op) sættes med rytters navn og denne får hold som child
-	      ryttereTempoRef.child( navn ).set({ // 'navn' og 'hold' dannes i funktionen bygRytter
-          hold: hold
-	      });
-				resetInputs();
-				tempo.prop('checked', false);
-				selectNameInput();
-			}
-			else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-				$( '#sprintGrp' ).append( rytter );
-	      ryttereSprintRef.child( navn ).set({
-          hold: hold
-	      });
-				resetInputs();
-				sprint.prop('checked', false);
-				selectNameInput();
-			}
-			else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-				$( '#bjergGrp' ).append( rytter );
-	      ryttereBjergRef.child( navn ).set({
-          hold: hold
-	      });
-				resetInputs();
-				bjerg.prop('checked', false);
-				selectNameInput();
-			} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
-				$('.alerts').append('<h4 class="alert alert-warning col-sm-6">Udfyld lige alle felter, du!</h4>');
-				$('.alert').delay(3000).fadeOut();
-			}
+			tilfojRytter();
 		}
+	});
+
+	// Mobil: Tilføj ved tryk på knap 'Tilføj rytter'
+	$( '#btnTilfojMobil' ).on('click', function () {
+		tilfojRytter();
 	});
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
