@@ -7,6 +7,7 @@ $(document).ready(function() {
   // Sæt referencer op til de forskellige grene af databasen
   var ryttereTempoRef = databRef.child( 'ryttere/tempo' );
   var ryttereSprintRef = databRef.child( 'ryttere/sprint' );
+  var ryttereBrostRef = databRef.child( 'ryttere/brost' );
   var ryttereBjergRef = databRef.child( 'ryttere/bjerg' );
 
 	// Byg rytter værdier ud fra indtastning i inputs
@@ -19,7 +20,7 @@ $(document).ready(function() {
 	};
 
 	// Hent al data i Firebase databasen
-	// Hent tempo ryttere
+	// Hent temporyttere
 	ryttereTempoRef.once('value', function(snapshot) { // ryttereTempoRef sat højere oppe
 	  snapshot.forEach(function(childSnapshot) {
 	  	// Hent key for hver (navnet)
@@ -37,7 +38,7 @@ $(document).ready(function() {
 	  console.log('The read failed: ' + errorObject.code);
 	});
 
-	// Hent sprint ryttere
+	// Hent sprintryttere
 	ryttereSprintRef.once('value', function(snapshot) {
 	  snapshot.forEach(function(childSnapshot) {
 	  	var navn = childSnapshot.key();
@@ -50,7 +51,20 @@ $(document).ready(function() {
 	  console.log('The read failed: ' + errorObject.code);
 	});
 
-	// Hent bjerg ryttere
+	// Hent brostensryttere
+	ryttereBrostRef.once('value', function(snapshot) {
+	  snapshot.forEach(function(childSnapshot) {
+	  	var navn = childSnapshot.key();
+	  	var rytterData = childSnapshot.val();
+	  	var hold = rytterData.hold;
+			var rytter = bygRytter(navn, hold);
+			$( '#brostGrp' ).append( rytter );
+	  });
+	}, function (errorObject) {
+	  console.log('The read failed: ' + errorObject.code);
+	});
+
+	// Hent bjergryttere
 	ryttereBjergRef.once('value', function(snapshot) {
 	  snapshot.forEach(function(childSnapshot) {
 	  	var navn = childSnapshot.key();
@@ -79,6 +93,7 @@ $(document).ready(function() {
 	// Gem kategori checkboxes i variabler
 	var tempo = $( '#tempo' );
 	var sprint = $( '#sprint' );
+	var brost = $( '#brost' );
 	var bjerg = $( '#bjerg' );
 
 	// Funktion der resetter inputs ved successfuld tilføjelse til listen
@@ -119,6 +134,15 @@ $(document).ready(function() {
 			sprint.prop('checked', false);
 			selectNameInput();
 		}
+		else if ( brost.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
+			$( '#brostGrp' ).append( rytter );
+      ryttereBrostRef.child( navn ).set({
+        hold: hold
+      });
+			resetInputs();
+			brost.prop('checked', false);
+			selectNameInput();
+		}
 		else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
 			$( '#bjergGrp' ).append( rytter );
       ryttereBjergRef.child( navn ).set({
@@ -128,7 +152,7 @@ $(document).ready(function() {
 			bjerg.prop('checked', false);
 			selectNameInput();
 		} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
-			$('.alerts').append('<h4 class="alert alert-warning col-sm-6">Udfyld lige alle felter, du!</h4>');
+			$('.alerts').append('<h4 class="alert alert-warning col-sm-8">Udfyld lige alle felter, du!</h4>');
 			$('.alert').delay(3000).fadeOut();
 		}
 	};
@@ -139,7 +163,7 @@ $(document).ready(function() {
 	};
 
 	// Tilføj rytter ved tryk på enter
-	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #bjerg' ).keyup( function(e) {
+	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bjerg' ).keyup( function(e) {
 		navn = $( '#rytterNavn' ).val();
 		navn = titelCase( navn );
 		hold = $( '#rytterHold' ).val();
@@ -161,10 +185,10 @@ $(document).ready(function() {
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
 	var showEnterAlert = true; // Sættes til 'false' når rytter tilføjes med tryk på enter (se længere oppe)
-	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #bjerg' ).on('change', function() {
+	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bjerg' ).on('change', function() {
 		if ( rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 && $('.checkboxes input:radio:checked').length > 0 ) {
 			if ( showEnterAlert === true ) {
-				$('.alerts').append('<h4 class="alert alert-warning col-sm-6">Hit enter!</h4>');
+				$('.alerts').append('<h4 class="alert alert-warning col-sm-8">Hit enter!</h4>');
 			}
 		}
 		$('.alert').delay(3000).fadeOut();
@@ -187,6 +211,9 @@ $(document).ready(function() {
 		else if ( rytterGrpId === 'sprintGrp' ) {
 			ryttereSprintRef.child(rytterNavn).remove();
 		}
+		else if ( rytterGrpId === 'brostGrp' ) {
+			ryttereBrostRef.child(rytterNavn).remove();
+		}
 		else if ( rytterGrpId === 'bjergGrp' ) {
 			ryttereBjergRef.child(rytterNavn).remove();
 		}
@@ -194,7 +221,7 @@ $(document).ready(function() {
 
 
 	// Sortérbar [jQuery UI]
-	$( '#tempoGrp, #sprintGrp, #bjergGrp' ).sortable({
+	$( '#tempoGrp, #sprintGrp, #brostGrp, #bjergGrp' ).sortable({
 		// connectWith: '.connectedSortable'
 		// Implementér sortering mellem grupper, når det er sat op med Firebase
 	});

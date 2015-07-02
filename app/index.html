@@ -28,15 +28,15 @@
     <div class="container">
 
       <div class="row">
-        <div class="header col-xs-offset-1 col-xs-10 col-sm-6">
+        <div class="header col-xs-12 col-sm-6">
           <h1 class="headline">Tour Manager 2015</h1>
           <h3>Ryttergrupper</h3>
         </div>
       </div>
 
       <div class="row">
-        <div class="inputs col-xs-offset-1 col-xs-10 col-sm-9">
-          <input type="text" id="rytterNavn" class="col-xs-8 col-sm-7" placeholder="Efternavn" />
+        <div class="inputs col-xs-12 col-sm-9">
+          <input type="text" id="rytterNavn" class="col-xs-8" placeholder="Efternavn" />
           <select id="rytterHold" class="col-xs-4 col-sm-6">
             <option value="Hold" disabled selected>Hold</option>
             <option value="AG2R">AG2R</option>
@@ -65,26 +65,27 @@
         </div>
       </div>
       <div class="row">
-        <div class="checkboxes col-xs-offset-1 col-xs-10 col-sm-9">
-          <label class="col-xs-4 col-sm-2"><input type="radio" id="tempo" name="rytter-kat"> <span>Tempo</span></label>
-          <label class="col-xs-4 col-sm-2"><input type="radio" id="sprint" name="rytter-kat"> <span>Sprint</span></label>
-          <label class="col-xs-4 col-sm-2"><input type="radio" id="bjerg" name="rytter-kat"> <span>Bjerg</span></label>
+        <div class="checkboxes col-xs-12 col-sm-9">
+          <label class="col-xs-3 col-sm-2"><input type="radio" id="tempo" name="rytter-kat"> <span>Tempo</span></label>
+          <label class="col-xs-3 col-sm-2"><input type="radio" id="sprint" name="rytter-kat"> <span>Sprint</span></label>
+          <label class="col-xs-3 col-sm-2"><input type="radio" id="brost" name="rytter-kat"> <span>Brosten</span></label>
+          <label class="col-xs-3 col-sm-2"><input type="radio" id="bjerg" name="rytter-kat"> <span>Bjerg</span></label>
         </div>
       </div>
       <div class="row">
-        <div class="visible-xs-block col-xs-offset-1 col-xs-10">
+        <div class="visible-xs-block col-xs-12">
           <button type="submit" id="btnTilfojMobil" class="btn btn-tilfoj-mobil">Tilføj rytter</button>
         </div>
       </div>
 
       <div class="row">
-        <div class="alerts col-xs-offset-1 col-xs-10 col-sm-9"></div>
+        <div class="alerts col-xs-12 col-sm-9"></div>
       </div>
 
       <div class="row">
-        <div class="col-xs-offset-1 col-xs-10 col-sm-9 rytter-data">
+        <div class="col-xs-12 col-sm-9 rytter-data">
           <div class="row">
-            <ul class="rytter-data-grp col-sm-6">
+            <ul class="rytter-data-grp col-sm-8">
               <h4 id="tempoGrpTitle" class="rytter-data-grp_title"><i class="fa fa-clock-o"></i>
                Tempospecialister
               </h4>
@@ -92,7 +93,7 @@
             </ul>
           </div>
           <div class="row">
-            <ul class="rytter-data-grp col-sm-6">
+            <ul class="rytter-data-grp col-sm-8">
               <h4 id="sprintGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-right"></i>
                Sprintere
               </h4>
@@ -100,7 +101,15 @@
             </ul>
           </div>
           <div class="row">
-            <ul class="rytter-data-grp col-sm-6">
+            <ul class="rytter-data-grp col-sm-8">
+              <h4 id="brostGrpTitle" class="rytter-data-grp_title"><i class="fa fa-th"></i>
+               Brostensspecialister
+              </h4>
+              <ul id="brostGrp" class="connectedSortable"></ul>
+            </ul>
+          </div>
+          <div class="row">
+            <ul class="rytter-data-grp col-sm-8">
               <h4 id="bjergGrpTitle" class="rytter-data-grp_title"><i class="fa fa-arrow-up"></i>
                Bjergryttere
               </h4>
