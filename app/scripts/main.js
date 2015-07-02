@@ -96,6 +96,7 @@ $(document).ready(function() {
 	var tilfojRytter = function() {
 		// Dan HTML for en rytter
 		var rytter = bygRytter(navn, hold);
+		// Nu er en rytter tilføjet så slå alert, om at man kan trykke enter, fra
 		showEnterAlert = false;
 
 		// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
@@ -165,10 +166,22 @@ $(document).ready(function() {
 		$('.alert').delay(3000).fadeOut();
 	});
 
-	// Slet rytter-knap ved hver <li>
+	// Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li>
 	$( '.container' ).on( 'click', '#sletRytter', function() {
-		$( this ).closest('li').remove();
+		var rytter = $( this ).closest('li'); // Find tættest li
+		var rytterMeta = rytter.text(); // Træk teksten ud af dette li
+		var rytterNavn = rytterMeta.slice(0, rytterMeta.indexOf(',')); // Træk navn ud af text node (hent string indtil komma)
+		var rytterGrp = rytter.closest('ul'); // Find gruppen denne li er del af
+		var rytterGrpId = rytterGrp.attr('id'); // Træk ID'et på denne gruppe ud
+
+		rytter.remove(); // Fjern rytter fra DOM
+
+		// Slet rytter fra Firebase
+		if ( rytterGrpId === 'tempoGrp' ) {
+			ryttereTempoRef.child(rytterNavn).remove();
+		}
 	});
+
 
 	// Sortérbar [jQuery UI]
 	$( '#tempoGrp, #sprintGrp, #bjergGrp' ).sortable({
