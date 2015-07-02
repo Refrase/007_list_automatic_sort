@@ -148,12 +148,13 @@ $(document).ready(function() {
 		if ( e.keycode === 13 || e.which === 13 ) {
 			tilfojRytter();
 		}
+		// Mobil: Tilføj ved tryk på knap 'Tilføj rytter'
+		$( '#btnTilfojMobil' ).on('click', function () {
+			tilfojRytter();
+		});
 	});
 
-	// Mobil: Tilføj ved tryk på knap 'Tilføj rytter'
-	$( '#btnTilfojMobil' ).on('click', function () {
-		tilfojRytter();
-	});
+
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
 	var showEnterAlert = true; // Sættes til 'false' når rytter tilføjes med tryk på enter (se længere oppe)
