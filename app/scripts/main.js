@@ -13,7 +13,8 @@ $(document).ready(function() {
 
 	// Byg rytter værdier ud fra indtastning i inputs
 	var bygRytter = function(navn, hold) {
-		var rytterHTML = '<li>' + navn;
+		var starBtn = ' <span id="favoRytter"><i class="fa fa-star-o"></i></span>';
+		var rytterHTML = '<li>' + starBtn + navn;
 		var delBtn = ' <span id="sletRytter"><i class="fa fa-remove"></i></span>';
 		if ( hold !== '' ) { rytterHTML += ', ' + hold + delBtn + '</li>'; }
 		else { rytterHTML += delBtn + '</li>'; }
@@ -216,6 +217,11 @@ $(document).ready(function() {
 			}
 		}
 		$('.alert').delay(3000).fadeOut();
+	});
+
+	// Fyld stjerne ud, ved tryk på denne (og tøm ved tryk igen)
+	$( 'body' ).on( 'click', '#favoRytter i', function() {
+		$( this ).toggleClass( 'fa-star-o fa-star' );
 	});
 
 	// Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li>

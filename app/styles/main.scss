@@ -19,6 +19,8 @@ $clr_bla2: #214565;
 $clr_gra1: #aaa;
 $clr_gra2: #333;
 $clr_gro1: #6aaf6a;
+$clr-gul1: #faeacc;
+$clr_gul2: #8a6d3b;
 
 
 *, html, body, h1, h2, h3, h4, h5, h6, p, a, span, .checkbox, in {
@@ -113,7 +115,9 @@ input[type=radio]:checked {
 #bakkeGrpTitle, #bakkeGrpTitle i { color: $clr_bla1; }
 #bjergGrpTitle, #bjergGrpTitle i { color: $clr_rod1; }
 
-#sletRytter  {
+#favoRytter i { cursor: pointer; color: $clr-gul2; }
+
+#sletRytter {
 	position: absolute;
 	right: 0;
 	top: 0;
