@@ -219,6 +219,32 @@ $(document).ready(function() {
 		}
 	});
 
+	/* ----- Vis/skjul kategori-lister ----- */
+
+	var visListe = function( listeOverskrift ) {
+		$( listeOverskrift ).on( 'click', function () {
+			var pil = $( this ).children( '.fa-pil' );
+			pil.toggleClass( 'fa-chevron-down fa-chevron-left');
+			$( this ).next( 'ul' ).toggle({
+				effect: 'slide',
+				direction: 'up',
+				duration: 300,
+				easing: 'easeInOutQuart'
+			});
+		});
+	};
+
+	var tempoGrpTitle = '#tempoGrpTitle';
+	var sprintGrpTitle = '#sprintGrpTitle';
+	var brostGrpTitle = '#brostGrpTitle';
+	var bjergGrpTitle = '#bjergGrpTitle';
+
+	visListe( tempoGrpTitle );
+	visListe( sprintGrpTitle );
+	visListe( brostGrpTitle );
+	visListe( bjergGrpTitle );
+
+	/* ----- / Vis/skjul kategori-lister ----- */
 
 	// Sortérbar [jQuery UI]
 	$( '#tempoGrp, #sprintGrp, #brostGrp, #bjergGrp' ).sortable({
