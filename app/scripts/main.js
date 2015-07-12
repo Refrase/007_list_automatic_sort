@@ -8,6 +8,7 @@ $(document).ready(function() {
   var ryttereTempoRef = databRef.child( 'ryttere/tempo' );
   var ryttereSprintRef = databRef.child( 'ryttere/sprint' );
   var ryttereBrostRef = databRef.child( 'ryttere/brost' );
+  var ryttereBakkeRef = databRef.child( 'ryttere/bakke' );
   var ryttereBjergRef = databRef.child( 'ryttere/bjerg' );
 
 	// Byg rytter værdier ud fra indtastning i inputs
@@ -64,6 +65,19 @@ $(document).ready(function() {
 	  console.log('The read failed: ' + errorObject.code);
 	});
 
+	// Hent bakkeryttere
+	ryttereBakkeRef.once('value', function(snapshot) {
+	  snapshot.forEach(function(childSnapshot) {
+	  	var navn = childSnapshot.key();
+	  	var rytterData = childSnapshot.val();
+	  	var hold = rytterData.hold;
+			var rytter = bygRytter(navn, hold);
+			$( '#bakkeGrp' ).append( rytter );
+	  });
+	}, function (errorObject) {
+	  console.log('The read failed: ' + errorObject.code);
+	});
+
 	// Hent bjergryttere
 	ryttereBjergRef.once('value', function(snapshot) {
 	  snapshot.forEach(function(childSnapshot) {
@@ -94,6 +108,7 @@ $(document).ready(function() {
 	var tempo = $( '#tempo' );
 	var sprint = $( '#sprint' );
 	var brost = $( '#brost' );
+	var bakke = $( '#bakke' );
 	var bjerg = $( '#bjerg' );
 
 	// Funktion der resetter inputs ved successfuld tilføjelse til listen
@@ -143,6 +158,15 @@ $(document).ready(function() {
 			brost.prop('checked', false);
 			selectNameInput();
 		}
+		else if ( bakke.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
+			$( '#bakkeGrp' ).append( rytter );
+      ryttereBakkeRef.child( navn ).set({
+        hold: hold
+      });
+			resetInputs();
+			bakke.prop('checked', false);
+			selectNameInput();
+		}
 		else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
 			$( '#bjergGrp' ).append( rytter );
       ryttereBjergRef.child( navn ).set({
@@ -163,7 +187,7 @@ $(document).ready(function() {
 	};
 
 	// Tilføj rytter ved tryk på enter
-	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bjerg' ).keyup( function(e) {
+	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bakke, #bjerg' ).keyup( function(e) {
 		navn = $( '#rytterNavn' ).val();
 		navn = titelCase( navn );
 		hold = $( '#rytterHold' ).val();
@@ -214,6 +238,9 @@ $(document).ready(function() {
 		else if ( rytterGrpId === 'brostGrp' ) {
 			ryttereBrostRef.child(rytterNavn).remove();
 		}
+		else if ( rytterGrpId === 'bakkeGrp' ) {
+			ryttereBakkeRef.child(rytterNavn).remove();
+		}
 		else if ( rytterGrpId === 'bjergGrp' ) {
 			ryttereBjergRef.child(rytterNavn).remove();
 		}
@@ -223,8 +250,8 @@ $(document).ready(function() {
 
 	var visListe = function( listeOverskrift ) {
 		$( listeOverskrift ).on( 'click', function () {
-			var pil = $( this ).children( '.fa-pil' );
-			pil.toggleClass( 'fa-chevron-down fa-chevron-left');
+			var pil = $( this ).children( '.fa-fold-ud' );
+			pil.toggleClass( 'fa-minus fa-plus');
 			$( this ).next( 'ul' ).toggle({
 				effect: 'slide',
 				direction: 'up',
@@ -237,17 +264,19 @@ $(document).ready(function() {
 	var tempoGrpTitle = '#tempoGrpTitle';
 	var sprintGrpTitle = '#sprintGrpTitle';
 	var brostGrpTitle = '#brostGrpTitle';
+	var bakkeGrpTitle = '#bakkeGrpTitle';
 	var bjergGrpTitle = '#bjergGrpTitle';
 
 	visListe( tempoGrpTitle );
 	visListe( sprintGrpTitle );
 	visListe( brostGrpTitle );
+	visListe( bakkeGrpTitle );
 	visListe( bjergGrpTitle );
 
 	/* ----- / Vis/skjul kategori-lister ----- */
 
 	// Sortérbar [jQuery UI]
-	$( '#tempoGrp, #sprintGrp, #brostGrp, #bjergGrp' ).sortable({
+	$( '#tempoGrp, #sprintGrp, #brostGrp, #bakkeGrp, #bjergGrp' ).sortable({
 		// connectWith: '.connectedSortable'
 		// Implementér sortering mellem grupper, når det er sat op med Firebase
 	});

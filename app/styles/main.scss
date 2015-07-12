@@ -65,7 +65,6 @@ select, { // Remove default styling
 .checkboxes label {
 	cursor: pointer;
 	border-top: 1px solid #ededed;
-	border-bottom: 1px solid #ededed;
 	background: #fff;
 	padding-left: $dist-l; }
 
@@ -89,13 +88,13 @@ input[type=radio]:checked {
 	color: #999;
 	background: #ededed;
 	border-radius: 0;
-	margin-top: -6px;
+	margin-top: $dist-s;
 	margin-bottom: $dist-l; }
 
 .btn-tilfoj-mobil:hover { background: #dedede; 	color: #999; }
 
 .fa { text-align: right; width: 20px; padding-right: $dist-s; }
-.fa-pil { position: absolute; right: 6px; }
+.fa-fold-ud { position: absolute; right: 5px; }
 
 .rytter-data li:nth-child(odd) { background: #f4f4f4; }
 .rytter-data-grp { margin-bottom: $dist-l; }
@@ -104,6 +103,7 @@ input[type=radio]:checked {
 #tempoGrpTitle, #tempoGrpTitle i { color: $clr_gra1; }
 #sprintGrpTitle, #sprintGrpTitle i { color: $clr_gro1; }
 #brostGrpTitle, #brostGrpTitle i { color: $clr_gra2; }
+#bakkeGrpTitle, #bakkeGrpTitle i { color: $clr_bla1; }
 #bjergGrpTitle, #bjergGrpTitle i { color: $clr_rod1; }
 
 #sletRytter  {
@@ -122,7 +122,9 @@ input[type=radio]:checked {
 
 @media (max-width: 768px) {
 	.inputs select { 	border-left: 1px solid #ededed; }
-	.fa-pil { right: 22px; } }
+	.fa-fold-ud { right: 20px; }
+  .checkboxes label { width: 18.9%; }
+  .checkboxes label:nth-child(3) { width: 20.5%; } }
 
 @media (min-width: 768px) {
 	.rytter-data-grp { padding-right: 0; }
