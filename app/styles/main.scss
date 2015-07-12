@@ -121,7 +121,8 @@ input[type=radio]:checked {
 #sletRytter:hover { padding-right: 16px; }
 
 @media (max-width: 768px) {
-	.inputs select { 	border-left: 1px solid #ededed; } }
+	.inputs select { 	border-left: 1px solid #ededed; }
+	.fa-pil { right: 22px; } }
 
 @media (min-width: 768px) {
 	.rytter-data-grp { padding-right: 0; }
