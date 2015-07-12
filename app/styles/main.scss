@@ -115,7 +115,6 @@ input[type=radio]:checked {
 
 #sletRytter  {
 	position: absolute;
-	background: $clr_rod1;
 	right: 0;
 	top: 0;
 	padding: 0 4px 0 12px;
@@ -124,6 +123,8 @@ input[type=radio]:checked {
 	padding-top: 11px;
 	cursor: pointer;
 	transition: all 0.4s cubic-bezier(0.1, 0.8, 0.2, 0.95); }
+#sletRytter { background: $clr_rod1; }
+.rytter-data li:nth-child(even) #sletRytter { opacity: 0.9; }
 #sletRytter i { color: $clr_rod2; }
 #sletRytter:hover { padding-right: 16px; }
 
