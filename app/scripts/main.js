@@ -176,7 +176,7 @@ $(document).ready(function() {
 			bjerg.prop('checked', false);
 			selectNameInput();
 		} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
-			$('.alerts').append('<h4 class="alert alert-warning col-sm-8">Udfyld lige alle felter, du!</h4>');
+			$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Udfyld lige alle felter, du!</h4>');
 			$('.alert').delay(3000).fadeOut();
 		}
 	};
@@ -209,10 +209,10 @@ $(document).ready(function() {
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
 	var showEnterAlert = true; // Sættes til 'false' når rytter tilføjes med tryk på enter (se længere oppe)
-	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bjerg' ).on('change', function() {
+	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bakke, #bjerg' ).on('change', function() {
 		if ( rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 && $('.checkboxes input:radio:checked').length > 0 ) {
 			if ( showEnterAlert === true ) {
-				$('.alerts').append('<h4 class="alert alert-warning col-sm-8">Hit enter!</h4>');
+				$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Hit enter!</h4>');
 			}
 		}
 		$('.alert').delay(3000).fadeOut();
@@ -281,7 +281,27 @@ $(document).ready(function() {
 		// Implementér sortering mellem grupper, når det er sat op med Firebase
 	});
 
+	/* ----- .tilfoj-rytter-blok følger med scroll når skærmtop når til den ----- */
 
+  var windo = $( window );
+  var tilfojRytterBlock = $( '.tilfoj-rytter-blok' );
+  var tilfojRytterBlockOffs = tilfojRytterBlock.offset();
+
+  windo.scroll( function() {
+    if ( windo.scrollTop() > tilfojRytterBlockOffs.top ) {
+      tilfojRytterBlock.stop().css({
+        position: 'fixed',
+        top: '0px',
+        'box-shadow': '0px 2px 0px 0px rgba(0, 0, 0, .15)'
+      });
+    } else { tilfojRytterBlock.stop().css({
+        position: 'relative',
+        'box-shadow': 'none'
+      });
+    }
+  });
+
+	/* ----- / .tilfoj-rytter-blok følger med scroll når skærmtop når til den ----- */
 
 
 });

@@ -35,58 +35,56 @@
       </div>
 
       <div class="row">
-        <div class="inputs col-xs-12 col-sm-9">
-          <input type="text" id="rytterNavn" class="col-xs-8" placeholder="Efternavn" />
-          <select id="rytterHold" class="col-xs-4 col-sm-6">
-            <option value="Hold" disabled selected>Hold</option>
-            <option value="AG2R">AG2R</option>
-            <option value="Astana">Astana</option>
-            <option value="BMC">BMC</option>
-            <option value="Bora-Argon">Bora-Argon</option>
-            <option value="Bretagne">Bretagne</option>
-            <option value="Cannondale">Cannondale</option>
-            <option value="Cofidis">Cofidis</option>
-            <option value="Europcar">Europcar</option>
-            <option value="FDJ">FDJ</option>
-            <option value="Giant">Giant</option>
-            <option value="IAM">IAM</option>
-            <option value="Katusha">Katusha</option>
-            <option value="Lampre">Lampre</option>
-            <option value="Lotto">Lotto</option>
-            <option value="LottoNL">LottoNL</option>
-            <option value="Movistar">Movistar</option>
-            <option value="Orica GE">Orica GE</option>
-            <option value="Qhubeka">Qhubeka</option>
-            <option value="Quick Step">Quick Step</option>
-            <option value="Sky">Sky</option>
-            <option value="Tinkoff-Saxo">Tinkoff-Saxo</option>
-            <option value="Trek">Trek</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="checkboxes col-xs-12 col-sm-9">
-          <label class="col-sm-2"><input type="radio" id="tempo" name="rytter-kat"> <span>Tempo</span></label>
-          <label class="col-sm-2"><input type="radio" id="sprint" name="rytter-kat"> <span>Sprint</span></label>
-          <label class="col-sm-2"><input type="radio" id="brost" name="rytter-kat"> <span>Brosten</span></label>
-          <label class="col-sm-2"><input type="radio" id="bakke" name="rytter-kat"> <span>Bakke</span></label>
-          <label class="col-sm-2"><input type="radio" id="bjerg" name="rytter-kat"> <span>Bjerg</span></label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="visible-xs-block col-xs-12">
-          <button type="submit" id="btnTilfojMobil" class="btn btn-tilfoj-mobil">Tilføj rytter</button>
-        </div>
+        <div class="tilfoj-rytter-blok col-xs-12 col-sm-9 col-lg-8">
+            <div class="inputs">
+              <input type="text" id="rytterNavn" class="col-xs-8" placeholder="Efternavn" />
+              <select id="rytterHold" class="col-xs-4">
+                <option value="Hold" disabled selected>Hold</option>
+                <option value="AG2R">AG2R</option>
+                <option value="Astana">Astana</option>
+                <option value="BMC">BMC</option>
+                <option value="Bora-Argon">Bora-Argon</option>
+                <option value="Bretagne">Bretagne</option>
+                <option value="Cannondale">Cannondale</option>
+                <option value="Cofidis">Cofidis</option>
+                <option value="Europcar">Europcar</option>
+                <option value="FDJ">FDJ</option>
+                <option value="Giant">Giant</option>
+                <option value="IAM">IAM</option>
+                <option value="Katusha">Katusha</option>
+                <option value="Lampre">Lampre</option>
+                <option value="Lotto">Lotto</option>
+                <option value="LottoNL">LottoNL</option>
+                <option value="Movistar">Movistar</option>
+                <option value="Orica GE">Orica GE</option>
+                <option value="Qhubeka">Qhubeka</option>
+                <option value="Quick Step">Quick Step</option>
+                <option value="Sky">Sky</option>
+                <option value="Tinkoff-Saxo">Tinkoff-Saxo</option>
+                <option value="Trek">Trek</option>
+              </select>
+            </div>
+            <div class="checkboxes">
+              <label class="col-sm-2"><input type="radio" id="tempo" name="rytter-kat"> <span>Tempo</span></label>
+              <label class="col-sm-2"><input type="radio" id="sprint" name="rytter-kat"> <span>Sprint</span></label>
+              <label class="col-sm-2"><input type="radio" id="brost" name="rytter-kat"> <span>Brosten</span></label>
+              <label class="col-sm-2"><input type="radio" id="bakke" name="rytter-kat"> <span>Bakke</span></label>
+              <label class="col-sm-2"><input type="radio" id="bjerg" name="rytter-kat"> <span>Bjerg</span></label>
+            </div>
+
+            <div class="row visible-xs-block">
+              <button type="submit" id="btnTilfojMobil" class="btn btn-tilfoj-mobil">Tilføj rytter</button>
+            </div>
+
+            <div class="alerts"></div>
+
+        </div> <!-- .tilfoj-rytter-blok -->
       </div>
 
       <div class="row">
-        <div class="alerts col-xs-12"></div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-10 col-sm-9 rytter-data">
+        <div class="col-xs-10 col-sm-9 col-lg-8 rytter-data">
           <div class="row">
-            <ul class="rytter-data-grp col-sm-10">
+            <ul class="rytter-data-grp col-sm-12">
               <h4 id="tempoGrpTitle" class="rytter-data-grp_title">
                   Tempospecialister
                 <i class="fa fa-minus fa-fold-ud"></i>
@@ -95,7 +93,7 @@
             </ul>
           </div>
           <div class="row">
-            <ul class="rytter-data-grp col-sm-10">
+            <ul class="rytter-data-grp col-sm-12">
               <h4 id="sprintGrpTitle" class="rytter-data-grp_title">
                   Sprintere
                 <i class="fa fa-minus fa-fold-ud"></i>
@@ -104,7 +102,7 @@
             </ul>
           </div>
           <div class="row">
-            <ul class="rytter-data-grp col-sm-10">
+            <ul class="rytter-data-grp col-sm-12">
               <h4 id="brostGrpTitle" class="rytter-data-grp_title">
                   Brostensspecialister
                 <i class="fa fa-minus fa-fold-ud"></i>
@@ -113,7 +111,7 @@
             </ul>
           </div>
           <div class="row">
-            <ul class="rytter-data-grp col-sm-10">
+            <ul class="rytter-data-grp col-sm-12">
               <h4 id="bakkeGrpTitle" class="rytter-data-grp_title">
                   Bakkeryttere
                 <i class="fa fa-minus fa-fold-ud"></i>
@@ -122,7 +120,7 @@
             </ul>
           </div>
           <div class="row">
-            <ul class="rytter-data-grp col-sm-10">
+            <ul class="rytter-data-grp col-sm-12">
               <h4 id="bjergGrpTitle" class="rytter-data-grp_title">
                   Bjergryttere
                 <i class="fa fa-minus fa-fold-ud"></i>
@@ -133,7 +131,7 @@
         </div>
       </div>
 
-    </div>
+    </div> <!-- .container -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
