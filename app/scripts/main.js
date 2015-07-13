@@ -13,8 +13,9 @@ $(document).ready(function() {
 
 	// Byg rytter værdier ud fra indtastning i inputs
 	var bygRytter = function(navn, hold) {
+		var tvivlBtn = ' <span id="tvivlRytter"><i class="fa fa-warning tvivl-gra"></i></span>';
 		var starBtn = ' <span id="favoRytter"><i class="fa fa-star-o"></i></span>';
-		var rytterHTML = '<li>' + starBtn + navn;
+		var rytterHTML = '<li>' + starBtn + tvivlBtn + navn;
 		var delBtn = ' <span id="sletRytter"><i class="fa fa-remove"></i></span>';
 		if ( hold !== '' ) { rytterHTML += ', ' + hold + delBtn + '</li>'; }
 		else { rytterHTML += delBtn + '</li>'; }
@@ -230,6 +231,11 @@ $(document).ready(function() {
 		} else {
 			li9.after( li );
 		}
+	});
+
+	// Farv tvivl skilt ved tryk (og grey out ved tryk igen)
+	$( 'body' ).on( 'click', '#tvivlRytter i', function() {
+		$( this ).toggleClass( 'tvivl-gra tvivl-rod' );
 	});
 
 	// Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li>

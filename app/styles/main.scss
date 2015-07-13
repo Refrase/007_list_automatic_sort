@@ -117,9 +117,17 @@ input[type=radio]:checked {
 #bjergGrpTitle, #bjergGrpTitle i { color: $clr_rod1; }
 
 .rytter-liste li:nth-child(9) { border-bottom: 28px solid $clr-gul1; }
-.rytter-liste li:nth-child(9):after { content: "9 ryttere"; position: absolute; top: 40px; left: 28px; color: $clr-gul2; }
+.rytter-liste li:nth-child(9):after {
+	content: "9 ryttere";
+	position: absolute;
+	top: 40px;
+	left: 28px;
+	color: $clr-gul2; }
 
 #favoRytter i { cursor: pointer; color: $clr-gul2; }
+#tvivlRytter i { cursor: pointer; }
+.tvivl-gra { color: $clr-gra0; }
+.tvivl-rod { color: $clr-rod2; }
 
 #sletRytter {
 	position: absolute;
