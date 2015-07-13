@@ -222,6 +222,13 @@ $(document).ready(function() {
 	// Fyld stjerne ud, ved tryk på denne (og tøm ved tryk igen)
 	$( 'body' ).on( 'click', '#favoRytter i', function() {
 		$( this ).toggleClass( 'fa-star-o fa-star' );
+		var li = $( this ).closest( 'li' );
+		var ul = $( this ).closest( 'ul' );
+		if ( $( this ).hasClass( 'fa-star' ) ) {
+			ul.prepend( li );
+		} else {
+			ul.append( li );
+		}
 	});
 
 	// Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li>
