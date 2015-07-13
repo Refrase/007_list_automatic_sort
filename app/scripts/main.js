@@ -46,8 +46,10 @@ $(document).ready(function() {
 		  	var tvivlsom = rytterData.tvivlsom;
 				// Byg rytter HTML
 				var rytter = bygRytter(navn, hold, favorit, tvivlsom);
-				// Append til tempo-gruppen
-				$( rytterGrp ).append( rytter );
+				// Prepend til gruppe givet ved argumentet 'rytterGrp', hvis stjerne er fyldt ud...
+				if ( favorit === true ) { $( rytterGrp ).prepend( rytter ); }
+				// ... ellers append
+				else { $( rytterGrp ).append( rytter ); }
 		  });
 		}, function (errorObject) {
 		  console.log('The read failed: ' + errorObject.code);
