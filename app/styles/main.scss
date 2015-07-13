@@ -20,7 +20,8 @@ $clr-gra0: #ededed;
 $clr_gra1: #aaa;
 $clr_gra2: #333;
 $clr_gro1: #6aaf6a;
-$clr-gul1: #faeacc;
+$clr_gul1: #fcf8e3;
+// $clr-gul1: #faeacc;
 $clr_gul2: #8a6d3b;
 
 
@@ -116,12 +117,12 @@ input[type=radio]:checked {
 #bakkeGrpTitle, #bakkeGrpTitle i { color: $clr_bla1; }
 #bjergGrpTitle, #bjergGrpTitle i { color: $clr_rod1; }
 
-.rytter-liste li:nth-child(9) { border-bottom: 28px solid $clr-gul1; }
+.rytter-liste li:nth-child(9) { border-bottom: 36px solid $clr-gul1; }
 .rytter-liste li:nth-child(9):after {
 	content: "9 ryttere";
 	position: absolute;
-	top: 40px;
-	left: 28px;
+	top: 44px;
+	left: 51px;
 	color: $clr-gul2; }
 
 #favoRytter i { cursor: pointer; color: $clr-gul2; }

@@ -1,0 +1,257 @@
+{
+  "ryttere" : {
+    "bakke" : {
+      "Gallopin" : {
+        "hold" : "Lotto"
+      },
+      "Martin" : {
+        "hold" : "Cannondale"
+      },
+      "Rodriquez" : {
+        "hold" : "Katusha"
+      },
+      "Simon" : {
+        "hold" : "Cofidis"
+      },
+      "Valverde" : {
+        "hold" : "Movistar"
+      },
+      "Van avermaet" : {
+        "hold" : "BMC"
+      },
+      "Vuillermoz" : {
+        "hold" : "AG2R"
+      }
+    },
+    "bjerg" : {
+      "Arredondo" : {
+        "hold" : "Trek"
+      },
+      "Bardet" : {
+        "hold" : "AG2R"
+      },
+      "Barguil" : {
+        "hold" : "Giant"
+      },
+      "Contador" : {
+        "hold" : "Tinkoff-Saxo"
+      },
+      "Costa" : {
+        "hold" : "Lampre"
+      },
+      "Devolder" : {
+        "hold" : "Trek"
+      },
+      "Edet" : {
+        "hold" : "Cofidis"
+      },
+      "Frank" : {
+        "hold" : "IAM"
+      },
+      "Froome" : {
+        "hold" : "Sky"
+      },
+      "Garderen" : {
+        "hold" : "BMC"
+      },
+      "Hesjedal" : {
+        "hold" : "Cannondale"
+      },
+      "König" : {
+        "hold" : "Sky"
+      },
+      "Mate" : {
+        "hold" : "Cofidis"
+      },
+      "Mollema" : {
+        "hold" : "Trek"
+      },
+      "Nibali" : {
+        "hold" : "Astana"
+      },
+      "Pinot" : {
+        "hold" : "FDJ"
+      },
+      "Quintana" : {
+        "hold" : "Movistar"
+      },
+      "Rodriquez" : {
+        "hold" : "Katusha"
+      },
+      "Rolland" : {
+        "hold" : "Europcar"
+      },
+      "Sepúlveda" : {
+        "hold" : "Bretagne"
+      },
+      "Serpa" : {
+        "hold" : "Lampre"
+      },
+      "Talansky" : {
+        "hold" : "Cannondale"
+      },
+      "Ten dam" : {
+        "hold" : "LottoNL"
+      },
+      "Uran" : {
+        "hold" : "Quick Step"
+      },
+      "Valls" : {
+        "hold" : "Lampre"
+      },
+      "Valverde" : {
+        "hold" : "Movistar"
+      },
+      "Wellens" : {
+        "hold" : "Lotto"
+      },
+      "Zubeldia" : {
+        "hold" : "Trek"
+      }
+    },
+    "brost" : {
+      "Boasson-hagen" : {
+        "hold" : "Sky"
+      },
+      "Boom" : {
+        "hold" : "Astana"
+      },
+      "Cancellara" : {
+        "hold" : "Trek"
+      },
+      "Degenkolb" : {
+        "hold" : "Giant"
+      },
+      "Elmiger" : {
+        "hold" : "IAM"
+      },
+      "Jungels" : {
+        "hold" : "LottoNL"
+      },
+      "Kristoff" : {
+        "hold" : "Katusha"
+      },
+      "Kwiatkowski" : {
+        "hold" : "Quick Step"
+      },
+      "Nibali" : {
+        "hold" : "Astana"
+      },
+      "Sagan" : {
+        "hold" : "Tinkoff-Saxo"
+      },
+      "Senechal" : {
+        "hold" : "Cofidis"
+      },
+      "Stybar" : {
+        "hold" : "Quick Step"
+      },
+      "Trentin" : {
+        "hold" : "Quick Step"
+      },
+      "Van avermaet" : {
+        "hold" : "BMC"
+      },
+      "Vanmarcke" : {
+        "hold" : "LottoNL"
+      },
+      "Vansummeren" : {
+        "hold" : "AG2R"
+      }
+    },
+    "sprint" : {
+      "Bennett" : {
+        "hold" : "Bora-Argon"
+      },
+      "Bonnet" : {
+        "hold" : "FDJ"
+      },
+      "Bouhanni" : {
+        "hold" : "Cofidis"
+      },
+      "Cavendish" : {
+        "hold" : "Quick Step"
+      },
+      "Chavanel" : {
+        "hold" : "FDJ"
+      },
+      "Cimolai" : {
+        "hold" : "Lampre"
+      },
+      "Coquard" : {
+        "hold" : "Europcar"
+      },
+      "Degenkolb" : {
+        "hold" : "Giant"
+      },
+      "Demare" : {
+        "hold" : "FDJ"
+      },
+      "Dempster" : {
+        "hold" : "Bora-Argon"
+      },
+      "Fonseca" : {
+        "hold" : "Bretagne"
+      },
+      "Greipel" : {
+        "hold" : "Lotto"
+      },
+      "Kristoff" : {
+        "hold" : "Katusha"
+      },
+      "Martens" : {
+        "hold" : "LottoNL"
+      },
+      "Matthews" : {
+        "hold" : "Orica GE"
+      },
+      "Navardauskas" : {
+        "hold" : "Cannondale"
+      },
+      "Sagan" : {
+        "hold" : "Tinkoff-Saxo"
+      }
+    },
+    "tempo" : {
+      "Cancellara" : {
+        "hold" : "Trek"
+      },
+      "Coppel" : {
+        "hold" : "IAM"
+      },
+      "Dennis" : {
+        "hold" : "BMC"
+      },
+      "Dowsett" : {
+        "hold" : "Movistar"
+      },
+      "Dumoulin" : {
+        "hold" : "Giant"
+      },
+      "Durbridge" : {
+        "hold" : "Orica GE"
+      },
+      "Garderen" : {
+        "hold" : "BMC"
+      },
+      "Jungels" : {
+        "hold" : "Trek"
+      },
+      "Kwiatkowski" : {
+        "hold" : "Quick Step"
+      },
+      "Malori" : {
+        "hold" : "Movistar"
+      },
+      "Martin" : {
+        "hold" : "Quick Step"
+      },
+      "Oliveira" : {
+        "hold" : "Lampre"
+      },
+      "Tuft" : {
+        "hold" : "Orica GE"
+      }
+    }
+  }
+}

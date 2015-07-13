@@ -139,7 +139,7 @@ $(document).ready(function() {
         hold: hold
       });
 			resetInputs();
-			tempo.prop('checked', false);
+			// tempo.prop('checked', false);
 			selectNameInput();
 		}
 		else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
@@ -148,7 +148,7 @@ $(document).ready(function() {
         hold: hold
       });
 			resetInputs();
-			sprint.prop('checked', false);
+			// sprint.prop('checked', false);
 			selectNameInput();
 		}
 		else if ( brost.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
@@ -157,7 +157,7 @@ $(document).ready(function() {
         hold: hold
       });
 			resetInputs();
-			brost.prop('checked', false);
+			// brost.prop('checked', false);
 			selectNameInput();
 		}
 		else if ( bakke.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
@@ -166,7 +166,7 @@ $(document).ready(function() {
         hold: hold
       });
 			resetInputs();
-			bakke.prop('checked', false);
+			// bakke.prop('checked', false);
 			selectNameInput();
 		}
 		else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
@@ -175,7 +175,7 @@ $(document).ready(function() {
         hold: hold
       });
 			resetInputs();
-			bjerg.prop('checked', false);
+			// bjerg.prop('checked', false);
 			selectNameInput();
 		} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
 			$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Udfyld lige alle felter, du!</h4>');
@@ -255,6 +255,7 @@ $(document).ready(function() {
 		var rytter = $( this ).closest( 'li' ); // Find tættest li
 		var rytterMeta = rytter.text(); // Træk teksten ud af dette li
 		var rytterNavn = rytterMeta.slice(0, rytterMeta.indexOf(',')); // Træk navn ud af text node (hent string indtil komma)
+		var rytterNavnString = $.trim( rytterNavn.toString() );
 		var rytterGrp = rytter.closest( 'ul' ); // Find gruppen denne li er del af
 		var rytterGrpId = rytterGrp.attr( 'id' ); // Træk ID'et på denne gruppe ud
 
@@ -262,19 +263,19 @@ $(document).ready(function() {
 
 		// Slet rytter fra Firebase
 		if ( rytterGrpId === 'tempoGrp' ) {
-			ryttereTempoRef.child( rytterNavn ).remove();
+			ryttereTempoRef.child( rytterNavnString ).remove();
 		}
 		else if ( rytterGrpId === 'sprintGrp' ) {
-			ryttereSprintRef.child( rytterNavn ).remove();
+			ryttereSprintRef.child( rytterNavnString ).remove();
 		}
 		else if ( rytterGrpId === 'brostGrp' ) {
-			ryttereBrostRef.child( rytterNavn ).remove();
+			ryttereBrostRef.child( rytterNavnString ).remove();
 		}
 		else if ( rytterGrpId === 'bakkeGrp' ) {
-			ryttereBakkeRef.child( rytterNavn ).remove();
+			ryttereBakkeRef.child( rytterNavnString ).remove();
 		}
 		else if ( rytterGrpId === 'bjergGrp' ) {
-			ryttereBjergRef.child( rytterNavn ).remove();
+			ryttereBjergRef.child( rytterNavnString ).remove();
 		}
 
 	});
