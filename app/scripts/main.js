@@ -219,15 +219,16 @@ $(document).ready(function() {
 		$('.alert').delay(3000).fadeOut();
 	});
 
-	// Fyld stjerne ud og flyt til top, ved tryk på denne (og tøm og flyt til bund ved tryk igen)
+	// Fyld stjerne ud og flyt til top, ved tryk på denne (og tøm og flyt til under 9. rytter ved tryk igen)
 	$( 'body' ).on( 'click', '#favoRytter i', function() {
 		$( this ).toggleClass( 'fa-star-o fa-star' );
 		var li = $( this ).closest( 'li' );
 		var ul = $( this ).closest( 'ul' );
+		var li9 = $( '#' + ul.attr( 'id' ) + ' li:nth-child(10)' );
 		if ( $( this ).hasClass( 'fa-star' ) ) {
 			ul.prepend( li );
 		} else {
-			ul.append( li );
+			li9.after( li );
 		}
 	});
 
