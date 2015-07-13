@@ -183,9 +183,21 @@ $(document).ready(function() {
 		}
 	};
 
-	// Filtrer input, så første bogstav bliver stort, resten småt
-	var titelCase = function(txt) {
-	  return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	// Filtrer input, så første bogstav i hvert ord i navnet bliver stort, resten småt
+	var titelCase = function(string) {
+		var words = string.split(' ');
+		var output = '';
+		for ( var i = 0 ; i < words.length; i++ ){
+			var lowerWord = words[i].toLowerCase();
+			lowerWord = lowerWord.trim();
+			var capitalizedWord = lowerWord.slice(0,1).toUpperCase() + lowerWord.slice(1);
+			output += capitalizedWord;
+			if ( i !== words.length - 1 ){
+				output += ' ';
+			}
+		}
+		output[output.length-1] = '';
+		return output;
 	};
 
 	// Tilføj rytter ved tryk på enter
@@ -240,30 +252,31 @@ $(document).ready(function() {
 
 	// Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li>
 	$( '.container' ).on( 'click', '#sletRytter', function() {
-		var rytter = $( this ).closest('li'); // Find tættest li
+		var rytter = $( this ).closest( 'li' ); // Find tættest li
 		var rytterMeta = rytter.text(); // Træk teksten ud af dette li
 		var rytterNavn = rytterMeta.slice(0, rytterMeta.indexOf(',')); // Træk navn ud af text node (hent string indtil komma)
-		var rytterGrp = rytter.closest('ul'); // Find gruppen denne li er del af
-		var rytterGrpId = rytterGrp.attr('id'); // Træk ID'et på denne gruppe ud
+		var rytterGrp = rytter.closest( 'ul' ); // Find gruppen denne li er del af
+		var rytterGrpId = rytterGrp.attr( 'id' ); // Træk ID'et på denne gruppe ud
 
 		rytter.remove(); // Fjern rytter fra DOM
 
 		// Slet rytter fra Firebase
 		if ( rytterGrpId === 'tempoGrp' ) {
-			ryttereTempoRef.child(rytterNavn).remove();
+			ryttereTempoRef.child( rytterNavn ).remove();
 		}
 		else if ( rytterGrpId === 'sprintGrp' ) {
-			ryttereSprintRef.child(rytterNavn).remove();
+			ryttereSprintRef.child( rytterNavn ).remove();
 		}
 		else if ( rytterGrpId === 'brostGrp' ) {
-			ryttereBrostRef.child(rytterNavn).remove();
+			ryttereBrostRef.child( rytterNavn ).remove();
 		}
 		else if ( rytterGrpId === 'bakkeGrp' ) {
-			ryttereBakkeRef.child(rytterNavn).remove();
+			ryttereBakkeRef.child( rytterNavn ).remove();
 		}
 		else if ( rytterGrpId === 'bjergGrp' ) {
-			ryttereBjergRef.child(rytterNavn).remove();
+			ryttereBjergRef.child( rytterNavn ).remove();
 		}
+
 	});
 
 	/* ----- Vis/skjul kategori-lister ----- */
