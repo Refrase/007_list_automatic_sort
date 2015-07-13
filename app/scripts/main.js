@@ -23,7 +23,7 @@ $(document).ready(function() {
 	};
 
 	// Hent al data i Firebase databasen
-	var hentRyttere = function(dbRef, riderGrp) {
+	var hentRyttere = function(dbRef, rytterGrp) {
 		dbRef.once('value', function(snapshot) {
 		  snapshot.forEach(function(childSnapshot) {
 		  	// Hent key for hver (navnet)
@@ -35,7 +35,7 @@ $(document).ready(function() {
 				// Byg rytter HTML
 				var rytter = bygRytter(navn, hold);
 				// Append til tempo-gruppen
-				$( riderGrp ).append( rytter );
+				$( rytterGrp ).append( rytter );
 		  });
 		}, function (errorObject) {
 		  console.log('The read failed: ' + errorObject.code);
@@ -79,62 +79,19 @@ $(document).ready(function() {
 		rytterNavnInput.select();
 	};
 
-	var tilfojRytter = function(navn, hold) {
+	var tilfojRytter = function(rytterGrp, dbRef) {
 		// Dan HTML for en rytter
 		var rytter = bygRytter(navn, hold);
 		// Nu er en rytter tilføjet så slå alert, om at man kan trykke enter, fra
 		showEnterAlert = false;
-
-		// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
-		if ( tempo.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-			$( '#tempoGrp' ).append( rytter );
-			// Send til Firebase. Child-node til tempo referencen (sat længere op) sættes med rytters navn og denne får hold som child
-      ryttereTempoRef.child( navn ).set({ // 'navn' og 'hold' dannes i funktionen bygRytter
-        hold: hold
-      });
-			resetInputs();
-			// tempo.prop('checked', false);
-			selectNameInput();
-		}
-		else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-			$( '#sprintGrp' ).append( rytter );
-      ryttereSprintRef.child( navn ).set({
-        hold: hold
-      });
-			resetInputs();
-			// sprint.prop('checked', false);
-			selectNameInput();
-		}
-		else if ( brost.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-			$( '#brostGrp' ).append( rytter );
-      ryttereBrostRef.child( navn ).set({
-        hold: hold
-      });
-			resetInputs();
-			// brost.prop('checked', false);
-			selectNameInput();
-		}
-		else if ( bakke.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-			$( '#bakkeGrp' ).append( rytter );
-      ryttereBakkeRef.child( navn ).set({
-        hold: hold
-      });
-			resetInputs();
-			// bakke.prop('checked', false);
-			selectNameInput();
-		}
-		else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0) {
-			$( '#bjergGrp' ).append( rytter );
-      ryttereBjergRef.child( navn ).set({
-        hold: hold
-      });
-			resetInputs();
-			// bjerg.prop('checked', false);
-			selectNameInput();
-		} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
-			$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Udfyld lige alle felter, du!</h4>');
-			$('.alert').delay(3000).fadeOut();
-		}
+		$( rytterGrp ).append( rytter );
+		// Send til Firebase. Child-node til tempo referencen (sat længere op) sættes med rytters navn og denne får hold som child
+    dbRef.child( navn ).set({ // 'navn' og 'hold' dannes i funktionen bygRytter
+      hold: hold,
+      starred: false
+    });
+		resetInputs();
+		selectNameInput();
 	};
 
 	// Filtrer input, så første bogstav i hvert ord i navnet bliver stort, resten småt
@@ -162,7 +119,21 @@ $(document).ready(function() {
 
 		// Når der trykkes enter i inputs...
 		if ( e.keycode === 13 || e.which === 13 ) {
-			tilfojRytter(navn, hold);
+			// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
+			if ( tempo.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+				tilfojRytter('#tempoGrp', ryttereTempoRef);
+			} else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+				tilfojRytter('#sprintGrp', ryttereSprintRef);
+			} else if ( brost.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+				tilfojRytter('#brostGrp', ryttereBrostRef);
+			} else if ( bakke.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+				tilfojRytter('#bakkeGrp', ryttereBakkeRef);
+			} else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+				tilfojRytter('#bjergGrp', ryttereBjergRef);
+			} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
+				$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Udfyld lige alle felter, du!</h4>');
+				$('.alert').delay(3000).fadeOut();
+			}
 		}
 	});
 
@@ -172,7 +143,21 @@ $(document).ready(function() {
 		navn = titelCase( navn );
 		hold = $( '#rytterHold' ).val();
 
-		tilfojRytter(navn, hold);
+		// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
+		if ( tempo.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+			tilfojRytter('#tempoGrp', ryttereTempoRef);
+		} else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+			tilfojRytter('#sprintGrp', ryttereSprintRef);
+		} else if ( brost.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+			tilfojRytter('#brostGrp', ryttereBrostRef);
+		} else if ( bakke.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+			tilfojRytter('#bakkeGrp', ryttereBakkeRef);
+		} else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
+			tilfojRytter('#bjergGrp', ryttereBjergRef);
+		} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
+			$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Udfyld lige alle felter, du!</h4>');
+			$('.alert').delay(3000).fadeOut();
+		}
 	});
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
