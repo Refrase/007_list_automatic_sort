@@ -23,75 +23,30 @@ $(document).ready(function() {
 	};
 
 	// Hent al data i Firebase databasen
-	// Hent temporyttere
-	ryttereTempoRef.once('value', function(snapshot) { // ryttereTempoRef sat højere oppe
-	  snapshot.forEach(function(childSnapshot) {
-	  	// Hent key for hver (navnet)
-	  	var navn = childSnapshot.key();
-	  	// Hent values for hver
-	  	var rytterData = childSnapshot.val();
-	  	// ... og træk holdet ud af den data
-	  	var hold = rytterData.hold;
-			// Byg rytter HTML
-			var rytter = bygRytter(navn, hold);
-			// Append til tempo-gruppen
-			$( '#tempoGrp' ).append( rytter );
-	  });
-	}, function (errorObject) {
-	  console.log('The read failed: ' + errorObject.code);
-	});
+	var hentRyttere = function(dbRef, riderGrp) {
+		dbRef.once('value', function(snapshot) {
+		  snapshot.forEach(function(childSnapshot) {
+		  	// Hent key for hver (navnet)
+		  	var navn = childSnapshot.key();
+		  	// Hent values for hver
+		  	var rytterData = childSnapshot.val();
+		  	// ... og træk holdet ud af den data
+		  	var hold = rytterData.hold;
+				// Byg rytter HTML
+				var rytter = bygRytter(navn, hold);
+				// Append til tempo-gruppen
+				$( riderGrp ).append( rytter );
+		  });
+		}, function (errorObject) {
+		  console.log('The read failed: ' + errorObject.code);
+		});
+	};
 
-	// Hent sprintryttere
-	ryttereSprintRef.once('value', function(snapshot) {
-	  snapshot.forEach(function(childSnapshot) {
-	  	var navn = childSnapshot.key();
-	  	var rytterData = childSnapshot.val();
-	  	var hold = rytterData.hold;
-			var rytter = bygRytter(navn, hold);
-			$( '#sprintGrp' ).append( rytter );
-	  });
-	}, function (errorObject) {
-	  console.log('The read failed: ' + errorObject.code);
-	});
-
-	// Hent brostensryttere
-	ryttereBrostRef.once('value', function(snapshot) {
-	  snapshot.forEach(function(childSnapshot) {
-	  	var navn = childSnapshot.key();
-	  	var rytterData = childSnapshot.val();
-	  	var hold = rytterData.hold;
-			var rytter = bygRytter(navn, hold);
-			$( '#brostGrp' ).append( rytter );
-	  });
-	}, function (errorObject) {
-	  console.log('The read failed: ' + errorObject.code);
-	});
-
-	// Hent bakkeryttere
-	ryttereBakkeRef.once('value', function(snapshot) {
-	  snapshot.forEach(function(childSnapshot) {
-	  	var navn = childSnapshot.key();
-	  	var rytterData = childSnapshot.val();
-	  	var hold = rytterData.hold;
-			var rytter = bygRytter(navn, hold);
-			$( '#bakkeGrp' ).append( rytter );
-	  });
-	}, function (errorObject) {
-	  console.log('The read failed: ' + errorObject.code);
-	});
-
-	// Hent bjergryttere
-	ryttereBjergRef.once('value', function(snapshot) {
-	  snapshot.forEach(function(childSnapshot) {
-	  	var navn = childSnapshot.key();
-	  	var rytterData = childSnapshot.val();
-	  	var hold = rytterData.hold;
-			var rytter = bygRytter(navn, hold);
-			$( '#bjergGrp' ).append( rytter );
-	  });
-	}, function (errorObject) {
-	  console.log('The read failed: ' + errorObject.code);
-	});
+	hentRyttere(ryttereTempoRef, '#tempoGrp'); // ryttereTempoRef sat højere oppe
+	hentRyttere(ryttereSprintRef, '#sprintGrp');
+	hentRyttere(ryttereBrostRef, '#brostGrp');
+	hentRyttere(ryttereBakkeRef, '#bakkeGrp');
+	hentRyttere(ryttereBjergRef, '#bjergGrp');
 
 	//
 	var navn;
