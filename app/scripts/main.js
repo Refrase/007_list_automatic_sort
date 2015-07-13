@@ -11,12 +11,20 @@ $(document).ready(function() {
   var ryttereBakkeRef = databRef.child( 'ryttere/bakke' );
   var ryttereBjergRef = databRef.child( 'ryttere/bjerg' );
 
-	// Byg rytter værdier ud fra indtastning i inputs
-	var bygRytter = function(navn, hold) {
-		var tvivlBtn = ' <span id="tvivlRytter"><i class="fa fa-warning tvivl-gra"></i></span>';
-		var starBtn = ' <span id="favoRytter"><i class="fa fa-star-o"></i></span>';
-		var rytterHTML = '<li>' + starBtn + tvivlBtn + navn;
+	// Byg rytter værdier ud fra indtastning i inputs (favorit + tvivlsom argumenterne bruges kun når der hentes fra databasen)
+	var bygRytter = function(navn, hold, favorit, tvivlsom) {
+		var tvivlBtnTrue = ' <span id="tvivlRytter"><i class="fa fa-warning tvivl-rod"></i></span>';
+		var starBtnTrue = ' <span id="favoRytter"><i class="fa fa-star"></i></span>';
+		var tvivlBtnFalse = ' <span id="tvivlRytter"><i class="fa fa-warning tvivl-gra"></i></span>';
+		var starBtnFalse = ' <span id="favoRytter"><i class="fa fa-star-o"></i></span>';
 		var delBtn = ' <span id="sletRytter"><i class="fa fa-remove"></i></span>';
+
+		var rytterHTML = '<li>';
+		if ( favorit === true) { rytterHTML += starBtnTrue; }
+		else { rytterHTML += starBtnFalse; }
+		if ( tvivlsom === true) { rytterHTML += tvivlBtnTrue; }
+		else { rytterHTML += tvivlBtnFalse; }
+		rytterHTML += navn;
 		if ( hold !== '' ) { rytterHTML += ', ' + hold + delBtn + '</li>'; }
 		else { rytterHTML += delBtn + '</li>'; }
 		return rytterHTML;
@@ -32,8 +40,12 @@ $(document).ready(function() {
 		  	var rytterData = childSnapshot.val();
 		  	// ... og træk holdet ud af den data
 		  	var hold = rytterData.hold;
+		  	// ... og træk favorit ud af den data
+		  	var favorit = rytterData.favorit;
+		  	// ... og træk tvivlsom ud af den data
+		  	var tvivlsom = rytterData.tvivlsom;
 				// Byg rytter HTML
-				var rytter = bygRytter(navn, hold);
+				var rytter = bygRytter(navn, hold, favorit, tvivlsom);
 				// Append til tempo-gruppen
 				$( rytterGrp ).append( rytter );
 		  });
@@ -81,7 +93,7 @@ $(document).ready(function() {
 
 	var tilfojRytter = function(rytterGrp, dbRef) {
 		// Dan HTML for en rytter
-		var rytter = bygRytter(navn, hold);
+		var rytter = bygRytter(navn, hold); // Tager også argumenterne, 'favorit' og 'tvivlsom'. Bruges kun når de hentes fra DB længere oppe, da favorit og tvivlsom først markeres efter rytteren er tilføjet.
 		// Nu er en rytter tilføjet så slå alert, om at man kan trykke enter, fra
 		showEnterAlert = false;
 		$( rytterGrp ).append( rytter );
@@ -152,32 +164,127 @@ $(document).ready(function() {
 		$('.alert').delay(3000).fadeOut();
 	});
 
-	// Fyld stjerne ud og flyt til top, ved tryk på denne (og tøm og flyt til under 9. rytter ved tryk igen)
-	$( 'body' ).on( 'click', '#favoRytter i', function() {
-		$( this ).toggleClass( 'fa-star-o fa-star' );
-		var li = $( this ).closest( 'li' );
-		var ul = $( this ).closest( 'ul' );
-		var li9 = $( '#' + ul.attr( 'id' ) + ' li:nth-child(10)' );
-		if ( $( this ).hasClass( 'fa-star' ) ) {
-			ul.prepend( li );
-		} else {
-			li9.after( li );
-		}
-	});
-
-	// Farv tvivl skilt ved tryk (og grey out ved tryk igen)
-	$( 'body' ).on( 'click', '#tvivlRytter i', function() {
-		$( this ).toggleClass( 'tvivl-gra tvivl-rod' );
-	});
-
-	// Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li>
-	$( '.container' ).on( 'click', '#sletRytter', function() {
-		var rytter = $( this ).closest( 'li' ); // Find tættest li
+	var hentRytterLiNavnOgGrpId = function ( btn ) {
+		var rytter = $( btn ).closest( 'li' ); // Find tættest li
 		var rytterMeta = rytter.text(); // Træk teksten ud af dette li
 		var rytterNavn = rytterMeta.slice(0, rytterMeta.indexOf(',')); // Træk navn ud af text node (hent string indtil komma)
 		var rytterNavnString = $.trim( rytterNavn.toString() );
 		var rytterGrp = rytter.closest( 'ul' ); // Find gruppen denne li er del af
 		var rytterGrpId = rytterGrp.attr( 'id' ); // Træk ID'et på denne gruppe ud
+		return [rytter, rytterNavnString, rytterGrpId];
+	};
+
+	/* ----- Fyld stjerne ud og flyt til top, ved tryk på denne (og tøm og flyt til under 9. rytter ved tryk igen) ----- */
+
+	$( 'body' ).on( 'click', '#favoRytter i', function() {
+		var rytterLiNavnOgGrpId = hentRytterLiNavnOgGrpId( this );
+		var rytterNavnString = rytterLiNavnOgGrpId[1];
+		var rytterGrpId = rytterLiNavnOgGrpId[2];
+		var favoritSti = '/favorit';
+
+		$( this ).toggleClass( 'fa-star-o fa-star' );
+
+		var li = $( this ).closest( 'li' );
+		var ul = $( this ).closest( 'ul' );
+		var li9 = $( '#' + ul.attr( 'id' ) + ' li:nth-child(10)' );
+
+		if ( $( this ).hasClass( 'fa-star' ) ) {
+			ul.prepend( li );
+			// Sæt favorit til true baseret på hvilken gruppe rytter er i
+			if ( rytterGrpId === 'tempoGrp' ) {
+				ryttereTempoRef.child( rytterNavnString + favoritSti ).set( true );
+			}
+			else if ( rytterGrpId === 'sprintGrp' ) {
+				ryttereSprintRef.child( rytterNavnString + favoritSti ).set( true );
+			}
+			else if ( rytterGrpId === 'brostGrp' ) {
+				ryttereBrostRef.child( rytterNavnString + favoritSti ).set( true );
+			}
+			else if ( rytterGrpId === 'bakkeGrp' ) {
+				ryttereBakkeRef.child( rytterNavnString + favoritSti ).set( true );
+			}
+			else if ( rytterGrpId === 'bjergGrp' ) {
+				ryttereBjergRef.child( rytterNavnString + favoritSti ).set( true );
+			}
+		} else {
+			li9.after( li );
+			// Sæt favorit til false baseret på hvilken gruppe rytter er i
+			if ( rytterGrpId === 'tempoGrp' ) {
+				ryttereTempoRef.child( rytterNavnString + favoritSti ).set( false );
+			}
+			else if ( rytterGrpId === 'sprintGrp' ) {
+				ryttereSprintRef.child( rytterNavnString + favoritSti ).set( false );
+			}
+			else if ( rytterGrpId === 'brostGrp' ) {
+				ryttereBrostRef.child( rytterNavnString + favoritSti ).set( false );
+			}
+			else if ( rytterGrpId === 'bakkeGrp' ) {
+				ryttereBakkeRef.child( rytterNavnString + favoritSti ).set( false );
+			}
+			else if ( rytterGrpId === 'bjergGrp' ) {
+				ryttereBjergRef.child( rytterNavnString + favoritSti ).set( false );
+			}
+		}
+	});
+
+	/* ----- / Fyld stjerne ud og flyt til top, ved tryk på denne (og tøm og flyt til under 9. rytter ved tryk igen) ----- */
+
+	/* ----- Farv tvivl skilt ved tryk (og grey out ved tryk igen) ----- */
+
+	$( 'body' ).on( 'click', '#tvivlRytter i', function() {
+		var rytterLiNavnOgGrpId = hentRytterLiNavnOgGrpId( this );
+		var rytterNavnString = rytterLiNavnOgGrpId[1];
+		var rytterGrpId = rytterLiNavnOgGrpId[2];
+		var tvivlsomSti = '/tvivlsom';
+
+		$( this ).toggleClass( 'tvivl-gra tvivl-rod' );
+
+		if ( $( this ).hasClass( 'tvivl-rod' ) ) {
+			// Sæt tvivlsom til true baseret på hvilken gruppe rytter er i
+			if ( rytterGrpId === 'tempoGrp' ) {
+				ryttereTempoRef.child( rytterNavnString + tvivlsomSti ).set( true );
+			}
+			else if ( rytterGrpId === 'sprintGrp' ) {
+				ryttereSprintRef.child( rytterNavnString + tvivlsomSti ).set( true );
+			}
+			else if ( rytterGrpId === 'brostGrp' ) {
+				ryttereBrostRef.child( rytterNavnString + tvivlsomSti ).set( true );
+			}
+			else if ( rytterGrpId === 'bakkeGrp' ) {
+				ryttereBakkeRef.child( rytterNavnString + tvivlsomSti ).set( true );
+			}
+			else if ( rytterGrpId === 'bjergGrp' ) {
+				ryttereBjergRef.child( rytterNavnString + tvivlsomSti ).set( true );
+			}
+		} else {
+			// Sæt tvivlsom til false baseret på hvilken gruppe rytter er i
+			if ( rytterGrpId === 'tempoGrp' ) {
+				ryttereTempoRef.child( rytterNavnString + tvivlsomSti ).set( false );
+			}
+			else if ( rytterGrpId === 'sprintGrp' ) {
+				ryttereSprintRef.child( rytterNavnString + tvivlsomSti ).set( false );
+			}
+			else if ( rytterGrpId === 'brostGrp' ) {
+				ryttereBrostRef.child( rytterNavnString + tvivlsomSti ).set( false );
+			}
+			else if ( rytterGrpId === 'bakkeGrp' ) {
+				ryttereBakkeRef.child( rytterNavnString + tvivlsomSti ).set( false );
+			}
+			else if ( rytterGrpId === 'bjergGrp' ) {
+				ryttereBjergRef.child( rytterNavnString + tvivlsomSti ).set( false );
+			}
+		}
+	});
+
+	/* ----- / Farv tvivl skilt ved tryk (og grey out ved tryk igen) ----- */
+
+	/* ----- Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li> ----- */
+
+	$( '.container' ).on( 'click', '#sletRytter', function() {
+		var rytterLiNavnOgGrpId = hentRytterLiNavnOgGrpId( this );
+		var rytter = rytterLiNavnOgGrpId[0];
+		var rytterNavnString = rytterLiNavnOgGrpId[1];
+		var rytterGrpId = rytterLiNavnOgGrpId[2];
 
 		rytter.remove(); // Fjern rytter fra DOM
 
@@ -197,8 +304,9 @@ $(document).ready(function() {
 		else if ( rytterGrpId === 'bjergGrp' ) {
 			ryttereBjergRef.child( rytterNavnString ).remove();
 		}
-
 	});
+
+	/* ----- / Slet rytter både fra DOM og Firebase ved tryk på rød knap i hver <li> ----- */
 
 	/* ----- Vis/skjul kategori-lister ----- */
 
