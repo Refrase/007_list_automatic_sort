@@ -117,12 +117,14 @@ input[type=radio]:checked {
 #bakkeGrpTitle, #bakkeGrpTitle i { color: $clr_bla1; }
 #bjergGrpTitle, #bjergGrpTitle i { color: $clr_rod1; }
 
-.rytter-liste li:nth-child(9) { border-bottom: 36px solid $clr-gul1; }
+.rytter-liste li:nth-child(9) { border-bottom: 18px solid $clr-gul1; }
 .rytter-liste li:nth-child(9):after {
-	content: "9 ryttere";
+	content: "Fuldt hold";
+	font-size: 0.7em;
+	text-transform: uppercase;
 	position: absolute;
-	top: 44px;
-	left: 51px;
+	top: 38px;
+	left: 8px;
 	color: $clr-gul2; }
 
 #favoRytter i { cursor: pointer; color: $clr-gul2; }

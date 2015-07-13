@@ -48,7 +48,6 @@ $(document).ready(function() {
 	hentRyttere(ryttereBakkeRef, '#bakkeGrp');
 	hentRyttere(ryttereBjergRef, '#bjergGrp');
 
-	//
 	var navn;
 	var hold;
 
