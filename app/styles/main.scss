@@ -104,6 +104,15 @@ input[type=radio]:checked {
 
 .btn-tilfoj-mobil:hover { background: #dedede; 	color: #999; }
 
+.alert {
+	border-radius: 0;
+	font-size: 14px;
+	padding: $dist-s;
+	margin-top: -14px;
+	text-align: center;
+	width: 200px;
+	left: calc(50% - 100px) }
+
 .fa { text-align: right; width: 20px; padding-right: $dist-s; }
 .fa-fold-ud { position: absolute; right: 5px; }
 
