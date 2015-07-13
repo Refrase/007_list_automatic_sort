@@ -16,6 +16,7 @@ $clr_rod1: #CD5555;
 $clr_rod2: #ab2121;
 $clr_bla1: #428bca;
 $clr_bla2: #214565;
+$clr-gra0: #ededed;
 $clr_gra1: #aaa;
 $clr_gra2: #333;
 $clr_gro1: #6aaf6a;
@@ -95,7 +96,7 @@ input[type=radio]:checked {
 .btn-tilfoj-mobil {
 	width: 100%;
 	color: #999;
-	background: #ededed;
+	background: $clr-gra0;
 	border-radius: 0;
 	margin-top: $dist-s;
 	margin-bottom: $dist-l; }
@@ -105,15 +106,18 @@ input[type=radio]:checked {
 .fa { text-align: right; width: 20px; padding-right: $dist-s; }
 .fa-fold-ud { position: absolute; right: 5px; }
 
-.rytter-data li:nth-child(odd) { background: #f4f4f4; }
+.rytter-data li:nth-child(even) { background: #f4f4f4; }
 .rytter-data-grp { margin-bottom: $dist-l; }
-.rytter-data-grp li { cursor: move; }
-.rytter-data-grp_title { padding: $dist-s; cursor: pointer; }
+// .rytter-data-grp li { cursor: move; }
+.rytter-data-grp_title { padding: $dist-s; cursor: pointer; background: #f4f4f4; }
 #tempoGrpTitle, #tempoGrpTitle i { color: $clr_gra1; }
 #sprintGrpTitle, #sprintGrpTitle i { color: $clr_gro1; }
 #brostGrpTitle, #brostGrpTitle i { color: $clr_gra2; }
 #bakkeGrpTitle, #bakkeGrpTitle i { color: $clr_bla1; }
 #bjergGrpTitle, #bjergGrpTitle i { color: $clr_rod1; }
+
+.rytter-liste li:nth-child(9) { border-bottom: 28px solid $clr-gul1; }
+.rytter-liste li:nth-child(9):after { content: "9 ryttere"; position: absolute; top: 40px; left: 28px; color: $clr-gul2; }
 
 #favoRytter i { cursor: pointer; color: $clr-gul2; }
 

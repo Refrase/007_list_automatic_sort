@@ -219,7 +219,7 @@ $(document).ready(function() {
 		$('.alert').delay(3000).fadeOut();
 	});
 
-	// Fyld stjerne ud, ved tryk på denne (og tøm ved tryk igen)
+	// Fyld stjerne ud og flyt til top, ved tryk på denne (og tøm og flyt til bund ved tryk igen)
 	$( 'body' ).on( 'click', '#favoRytter i', function() {
 		$( this ).toggleClass( 'fa-star-o fa-star' );
 		var li = $( this ).closest( 'li' );
@@ -289,16 +289,17 @@ $(document).ready(function() {
 	/* ----- / Vis/skjul kategori-lister ----- */
 
 	// Sortérbar [jQuery UI]
-	$( '#tempoGrp, #sprintGrp, #brostGrp, #bakkeGrp, #bjergGrp' ).sortable({
+	// $( '#tempoGrp, #sprintGrp, #brostGrp, #bakkeGrp, #bjergGrp' ).sortable({
 		// connectWith: '.connectedSortable'
 		// Implementér sortering mellem grupper, når det er sat op med Firebase
-	});
+	// });
 
 	/* ----- .tilfoj-rytter-blok følger med scroll når skærmtop når til den ----- */
 
   var windo = $( window );
   var tilfojRytterBlock = $( '.tilfoj-rytter-blok' );
   var tilfojRytterBlockOffs = tilfojRytterBlock.offset();
+  var rytterData = $( '#rytterData' );
 
   windo.scroll( function() {
     if ( windo.scrollTop() > tilfojRytterBlockOffs.top ) {
@@ -307,10 +308,13 @@ $(document).ready(function() {
         top: '0px',
         'box-shadow': '0px 2px 0px 0px rgba(0, 0, 0, .15)'
       });
-    } else { tilfojRytterBlock.stop().css({
+      rytterData.css({ 'margin-top': '112px' });
+    } else {
+    	tilfojRytterBlock.stop().css({
         position: 'relative',
         'box-shadow': 'none'
       });
+      rytterData.css({ 'margin-top': '0px' });
     }
   });
 
