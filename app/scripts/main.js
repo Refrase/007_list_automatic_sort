@@ -88,7 +88,8 @@ $(document).ready(function() {
 		// Send til Firebase. Child-node til tempo referencen (sat længere op) sættes med rytters navn og denne får hold som child
     dbRef.child( navn ).set({ // 'navn' og 'hold' dannes i funktionen bygRytter
       hold: hold,
-      starred: false
+      favorit: false,
+      tvivlsom: false
     });
 		resetInputs();
 		selectNameInput();
@@ -111,34 +112,7 @@ $(document).ready(function() {
 		return output;
 	};
 
-	// Tilføj rytter ved tryk på enter
-	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bakke, #bjerg' ).keyup( function(e) {
-		navn = $( '#rytterNavn' ).val();
-		navn = titelCase( navn );
-		hold = $( '#rytterHold' ).val();
-
-		// Når der trykkes enter i inputs...
-		if ( e.keycode === 13 || e.which === 13 ) {
-			// Alt efter hvilken checkbox der er checked OG hvis de andre inputs ikke er tomme, append rytteren given gruppe
-			if ( tempo.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
-				tilfojRytter('#tempoGrp', ryttereTempoRef);
-			} else if ( sprint.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
-				tilfojRytter('#sprintGrp', ryttereSprintRef);
-			} else if ( brost.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
-				tilfojRytter('#brostGrp', ryttereBrostRef);
-			} else if ( bakke.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
-				tilfojRytter('#bakkeGrp', ryttereBakkeRef);
-			} else if ( bjerg.is(':checked') && rytterNavnInput.val() !== '' && rytterHoldInput.prop('selectedIndex') !== 0 ) {
-				tilfojRytter('#bjergGrp', ryttereBjergRef);
-			} else { // Ellers giv en advarsel om at der mangler at blive udfyldt inputs
-				$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Udfyld lige alle felter, du!</h4>');
-				$('.alert').delay(3000).fadeOut();
-			}
-		}
-	});
-
-	// Mobil: Tilføj ved tryk på knap 'Tilføj rytter'
-	$( '#btnTilfojMobil' ).on('click', function () {
+	var tjekGrpAtTilfojeRytter = function() {
 		navn = $( '#rytterNavn' ).val();
 		navn = titelCase( navn );
 		hold = $( '#rytterHold' ).val();
@@ -158,7 +132,14 @@ $(document).ready(function() {
 			$('.alerts').append('<h4 class="alert alert-warning col-xs-12">Udfyld lige alle felter, du!</h4>');
 			$('.alert').delay(3000).fadeOut();
 		}
+	};
+
+	// Desktop: Tilføj rytter ved tryk på enter
+	$( '#rytterNavn, #rytterHold, #tempo, #sprint, #brost, #bakke, #bjerg' ).keyup( function(e) {
+		if ( e.keycode === 13 || e.which === 13 ) { tjekGrpAtTilfojeRytter(); }
 	});
+	// Mobil: Tilføj ved tryk på knap 'Tilføj rytter'
+	$( '#btnTilfojMobil' ).on('click', tjekGrpAtTilfojeRytter );
 
 	// Vis opfordring (første gang) til at trykke enter, når alle værdier er udfyldt
 	var showEnterAlert = true; // Sættes til 'false' når rytter tilføjes med tryk på enter (se længere oppe)
