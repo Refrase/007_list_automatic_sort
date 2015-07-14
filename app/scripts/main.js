@@ -357,12 +357,16 @@ $(document).ready(function() {
       tilfojRytterBlock.stop().css({
         position: 'fixed',
         top: '0px',
-        'box-shadow': '0px 2px 0px 0px rgba(0, 0, 0, .15)'
+        '-webkit-box-shadow': '0 8px 8px -4px rgba(0, 0, 0, .15)',
+	   		'-moz-box-shadow': '0 8px 8px -4px rgba(0, 0, 0, .15)',
+	      'box-shadow': '0 8px 8px -4px rgba(0, 0, 0, .15)'
       });
       rytterData.css({ 'margin-top': '112px' });
     } else {
     	tilfojRytterBlock.stop().css({
         position: 'relative',
+        '-webkit-box-shadow': 'none',
+        '-moz-box-shadow': 'none',
         'box-shadow': 'none'
       });
       rytterData.css({ 'margin-top': '0px' });

@@ -99,7 +99,7 @@ input[type=radio]:checked {
 	color: #999;
 	background: $clr-gra0;
 	border-radius: 0;
-	margin-top: $dist-s;
+	margin-top: -$dist-xs;
 	margin-bottom: $dist-l; }
 
 .btn-tilfoj-mobil:hover { background: #dedede; 	color: #999; }
@@ -121,10 +121,10 @@ input[type=radio]:checked {
 // .rytter-data-grp li { cursor: move; }
 .rytter-data-grp_title { padding: $dist-s; cursor: pointer; background: #f4f4f4; }
 #tempoGrpTitle, #tempoGrpTitle i { background: $clr_gra0; }
-#sprintGrpTitle, #sprintGrpTitle i { background: $clr_gro1; }
+#sprintGrpTitle, #sprintGrpTitle i { background: $clr_gro1; color: $clr-gra0; }
 #brostGrpTitle, #brostGrpTitle i { background: $clr_gra2; color: $clr-gra0; }
-#bakkeGrpTitle, #bakkeGrpTitle i { background: $clr_bla1; }
-#bjergGrpTitle, #bjergGrpTitle i { background: $clr_rod1; }
+#bakkeGrpTitle, #bakkeGrpTitle i { background: $clr_bla1; color: $clr-gra0; }
+#bjergGrpTitle, #bjergGrpTitle i { background: $clr_rod1; color: $clr-gra0; }
 
 .rytter-liste li:nth-child(9) { border-bottom: 18px solid $clr-gul1; }
 .rytter-liste li:nth-child(9):after {
@@ -158,7 +158,7 @@ input[type=radio]:checked {
   transform: scale( 1.3 ); }
 
 @media (max-width: 767px) {
-	.tilfoj-rytter-blok { height: 120px; }
+	.tilfoj-rytter-blok { height: 108px; }
 	.fa-fold-ud { right: 20px; }
   .checkboxes label { width: 18.9%; }
   .checkboxes label:nth-child(3) { width: 20.5%; } }
