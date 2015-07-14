@@ -1,6 +1,8 @@
 $(document).ready(function() {
 
 	'use strict';
+	// Telling jsHint to ignore hinting external scripts
+	// - probably not recognized because they are called in index.html
 	/* global FastClick:false */
 	/* global Firebase:false */
 
@@ -74,11 +76,6 @@ $(document).ready(function() {
 	var navn;
 	var hold;
 
-	// Autovælg navneinput
-	var nameInput = document.getElementById('rytterNavn');
-	nameInput.focus();
-	nameInput.select();
-
 	// Gem inputs i variabler
 	var rytterNavnInput = $( '#rytterNavn' );
 	var rytterHoldInput = $( '#rytterHold' );
@@ -96,7 +93,7 @@ $(document).ready(function() {
 		rytterHoldInput.prop('selectedIndex', 0);
 	};
 
-	// Vælg navne-input igen
+	// Autovælg navne-input
 	var selectNameInput = function() {
 		rytterNavnInput.focus();
 		rytterNavnInput.select();
@@ -300,23 +297,26 @@ $(document).ready(function() {
 		var rytterNavnString = rytterLiNavnOgGrpId[1];
 		var rytterGrpId = rytterLiNavnOgGrpId[2];
 
-		rytter.remove(); // Fjern rytter fra DOM
+		// Spørg om man er sikker på sletning
+		if ( window.confirm( 'Fjern ' + rytterNavnString + '?' ) ) {
+			rytter.remove(); // Fjern rytter fra DOM
 
-		// Slet rytter fra Firebase
-		if ( rytterGrpId === 'tempoGrp' ) {
-			ryttereTempoRef.child( rytterNavnString ).remove();
-		}
-		else if ( rytterGrpId === 'sprintGrp' ) {
-			ryttereSprintRef.child( rytterNavnString ).remove();
-		}
-		else if ( rytterGrpId === 'brostGrp' ) {
-			ryttereBrostRef.child( rytterNavnString ).remove();
-		}
-		else if ( rytterGrpId === 'bakkeGrp' ) {
-			ryttereBakkeRef.child( rytterNavnString ).remove();
-		}
-		else if ( rytterGrpId === 'bjergGrp' ) {
-			ryttereBjergRef.child( rytterNavnString ).remove();
+			// Slet rytter fra Firebase
+			if ( rytterGrpId === 'tempoGrp' ) {
+				ryttereTempoRef.child( rytterNavnString ).remove();
+			}
+			else if ( rytterGrpId === 'sprintGrp' ) {
+				ryttereSprintRef.child( rytterNavnString ).remove();
+			}
+			else if ( rytterGrpId === 'brostGrp' ) {
+				ryttereBrostRef.child( rytterNavnString ).remove();
+			}
+			else if ( rytterGrpId === 'bakkeGrp' ) {
+				ryttereBakkeRef.child( rytterNavnString ).remove();
+			}
+			else if ( rytterGrpId === 'bjergGrp' ) {
+				ryttereBjergRef.child( rytterNavnString ).remove();
+			}
 		}
 	});
 
