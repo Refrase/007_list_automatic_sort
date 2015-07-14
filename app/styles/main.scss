@@ -117,6 +117,7 @@ input[type=radio]:checked {
 .fa { text-align: right; width: 20px; padding-right: $dist-s; }
 .fa-fold-ud { position: absolute; right: 5px; top: 9px; }
 
+.rytter-data li { padding-left: 80px; }
 .rytter-data li:nth-child(even) { background: #f4f4f4; }
 .rytter-data-grp { margin-bottom: $dist-l; }
 // .rytter-data-grp li { cursor: move; }
@@ -137,17 +138,17 @@ input[type=radio]:checked {
 	left: 8px;
 	color: $clr-gul2; }
 
-#favoRytter i { cursor: pointer; color: $clr-gul2; }
-#tvivlRytter i { cursor: pointer; }
+#favoRytter, #tvivlRytter, #sletRytter { padding: 0 4px 0 12px; position: absolute; height: 100%; top: 0; }
+
+#favoRytter { cursor: pointer; padding-top: 8px; left: 4px; }
+#favoRytter i {  color: $clr-gul2; }
+
+#tvivlRytter { cursor: pointer; padding-top: 8px; left: 36px; }
 .tvivl-gra { color: $clr-gra0; }
 .tvivl-rod { color: $clr-rod2; }
 
 #sletRytter {
-	position: absolute;
 	right: 0;
-	top: 0;
-	padding: 0 4px 0 12px;
-	height: 100%;
 	line-height: 0;
 	padding-top: 11px;
 	cursor: pointer;

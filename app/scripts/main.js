@@ -178,19 +178,20 @@ $(document).ready(function() {
 
 	/* ----- Fyld stjerne ud og flyt til top, ved tryk på denne (og tøm og flyt til under 9. rytter ved tryk igen) ----- */
 
-	$( 'body' ).on( 'click', '#favoRytter i', function() {
+	$( 'body' ).on( 'click', '#favoRytter', function() {
 		var rytterLiNavnOgGrpId = hentRytterLiNavnOgGrpId( this );
 		var rytterNavnString = rytterLiNavnOgGrpId[1];
 		var rytterGrpId = rytterLiNavnOgGrpId[2];
 		var favoritSti = '/favorit';
 
-		$( this ).toggleClass( 'fa-star-o fa-star' );
+		var thisIcon = $( this ).children( 'i' );
+		$( thisIcon ).toggleClass( 'fa-star-o fa-star' );
 
 		var li = $( this ).closest( 'li' );
 		var ul = $( this ).closest( 'ul' );
 		var li9 = $( '#' + ul.attr( 'id' ) + ' li:nth-child(10)' );
 
-		if ( $( this ).hasClass( 'fa-star' ) ) {
+		if ( $( thisIcon ).hasClass( 'fa-star' ) ) {
 			ul.prepend( li );
 			// Sæt favorit til true baseret på hvilken gruppe rytter er i
 			if ( rytterGrpId === 'tempoGrp' ) {
@@ -233,15 +234,16 @@ $(document).ready(function() {
 
 	/* ----- Farv tvivl skilt ved tryk (og grey out ved tryk igen) ----- */
 
-	$( 'body' ).on( 'click', '#tvivlRytter i', function() {
+	$( 'body' ).on( 'click', '#tvivlRytter', function() {
 		var rytterLiNavnOgGrpId = hentRytterLiNavnOgGrpId( this );
 		var rytterNavnString = rytterLiNavnOgGrpId[1];
 		var rytterGrpId = rytterLiNavnOgGrpId[2];
 		var tvivlsomSti = '/tvivlsom';
 
-		$( this ).toggleClass( 'tvivl-gra tvivl-rod' );
+		var thisIcon = $( this ).children( 'i' );
+		$( thisIcon ).toggleClass( 'tvivl-gra tvivl-rod' );
 
-		if ( $( this ).hasClass( 'tvivl-rod' ) ) {
+		if ( $( thisIcon ).hasClass( 'tvivl-rod' ) ) {
 			// Sæt tvivlsom til true baseret på hvilken gruppe rytter er i
 			if ( rytterGrpId === 'tempoGrp' ) {
 				ryttereTempoRef.child( rytterNavnString + tvivlsomSti ).set( true );
