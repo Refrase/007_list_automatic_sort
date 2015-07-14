@@ -64,6 +64,7 @@ select, { // Remove default styling
 .inputs select {
 	background: #fff;
 	padding: $dist-s;
+	border-radius: none;
 	border: none;
 	border-bottom: 1px solid #ededed; }
 
@@ -114,7 +115,7 @@ input[type=radio]:checked {
 	left: calc(50% - 100px) }
 
 .fa { text-align: right; width: 20px; padding-right: $dist-s; }
-.fa-fold-ud { position: absolute; right: 5px; }
+.fa-fold-ud { position: absolute; right: 5px; top: 9px; }
 
 .rytter-data li:nth-child(even) { background: #f4f4f4; }
 .rytter-data-grp { margin-bottom: $dist-l; }
