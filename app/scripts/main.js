@@ -1,10 +1,11 @@
 $(document).ready(function() {
 
 	'use strict';
+	/* global FastClick:false */
+	/* global Firebase:false */
 
 	/* ----- Remove tap-delay (300ms) on iOS devices ----- */
 	$(function() { FastClick.attach(document.body); });
-
 
 	/* ----- Database references (Firebase) -----*/
 
@@ -192,14 +193,14 @@ $(document).ready(function() {
 		var rytterGrpId = rytterLiNavnOgGrpId[2];
 		var favoritSti = '/favorit';
 
+		var li = $( this ).closest( 'li' );
+		var ul = $( this ).closest( 'ul' );
+
 		var thisIcon = $( this ).children( 'i' );
 		$( thisIcon ).toggleClass( 'fa-star-o fa-star' );
 
-		var li = $( this ).closest( 'li' );
-		var ul = $( this ).closest( 'ul' );
-		var li9 = $( '#' + ul.attr( 'id' ) + ' li:nth-child(10)' );
-
 		if ( $( thisIcon ).hasClass( 'fa-star' ) ) {
+			// Flyt rytteren til toppen af listen
 			ul.prepend( li );
 			// Sæt favorit til true baseret på hvilken gruppe rytter er i
 			if ( rytterGrpId === 'tempoGrp' ) {
@@ -218,7 +219,8 @@ $(document).ready(function() {
 				ryttereBjergRef.child( rytterNavnString + favoritSti ).set( true );
 			}
 		} else {
-			li9.after( li );
+			// Flyt rytteren til lige udenfor 'FULDT HOLD'
+			ul.append( li );
 			// Sæt favorit til false baseret på hvilken gruppe rytter er i
 			if ( rytterGrpId === 'tempoGrp' ) {
 				ryttereTempoRef.child( rytterNavnString + favoritSti ).set( false );
