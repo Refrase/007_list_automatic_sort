@@ -63,7 +63,8 @@ select, { // Remove default styling
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
-  border-radius: none; }
+  border-radius: 0;
+  -webkit-border-radius: 0; }
 
 .inputs input,
 .inputs select {
