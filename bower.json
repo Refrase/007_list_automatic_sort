@@ -8,6 +8,7 @@
     "jquery-ui": "~1.11.4",
     "firebase": "~2.2.7",
     "font-awesome": "~4.3.0",
-    "jquery-ui-touch-punch": "*"
+    "jquery-ui-touch-punch": "*",
+    "fastclick": "~1.0.6"
   }
 }

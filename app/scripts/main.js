@@ -2,6 +2,12 @@ $(document).ready(function() {
 
 	'use strict';
 
+	/* ----- Remove tap-delay (300ms) on iOS devices ----- */
+	$(function() { FastClick.attach(document.body); });
+
+
+	/* ----- Database references (Firebase) -----*/
+
   var firebaseURL = 'https://glaring-torch-9804.firebaseio.com/';
   var databRef = new Firebase( firebaseURL );
   // Sæt referencer op til de forskellige grene af databasen
@@ -10,6 +16,8 @@ $(document).ready(function() {
   var ryttereBrostRef = databRef.child( 'ryttere/brost' );
   var ryttereBakkeRef = databRef.child( 'ryttere/bakke' );
   var ryttereBjergRef = databRef.child( 'ryttere/bjerg' );
+
+  /* ----- / Database references (Firebase) -----*/
 
 	// Byg rytter værdier ud fra indtastning i inputs (favorit + tvivlsom argumenterne bruges kun når der hentes fra databasen)
 	var bygRytter = function(navn, hold, favorit, tvivlsom) {

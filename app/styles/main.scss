@@ -24,6 +24,9 @@ $clr_gul1: #fcf8e3;
 // $clr-gul1: #faeacc;
 $clr_gul2: #8a6d3b;
 
+html { // Remove tap-delay on Windows-phones
+  -ms-touch-action: manipulation;
+  touch-action: manipulation; }
 
 *, html, body, h1, h2, h3, h4, h5, h6, p, a, span, .checkbox, in {
   margin: 0;
@@ -54,17 +57,18 @@ label { font-weight: normal; padding: $dist-s; }
 	height: 76px;
 	margin-bottom: $dist-l; }
 
+.inputs input,
 input[type="radio"],
 select, { // Remove default styling
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	appearance: none; }
+	appearance: none;
+  border-radius: none; }
 
 .inputs input,
 .inputs select {
 	background: #fff;
 	padding: $dist-s;
-	border-radius: none;
 	border: none;
 	border-bottom: 1px solid #ededed; }
 
@@ -160,6 +164,8 @@ input[type=radio]:checked {
   transform: scale( 1.3 ); }
 
 @media (max-width: 767px) {
+	.headline { margin-top: $dist-m; }
+	.header h3 { margin-top: -$dist-s; margin-bottom: $dist-m }
 	.tilfoj-rytter-blok { height: 108px; }
 	.fa-fold-ud { right: 20px; }
   .checkboxes label { width: 18.9%; }
