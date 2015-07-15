@@ -324,30 +324,34 @@ $(document).ready(function() {
 
 	/* ----- Vis/skjul kategori-lister ----- */
 
+	var clickDisabled = false;
+
 	var visListe = function( listeOverskrift ) {
 		$( listeOverskrift ).on( 'click', function () {
+			if ( clickDisabled ) { return; } // Kør ikke script, hvis click er disabled
+
 			var pil = $( this ).children( '.fa-fold-ud' );
-			pil.toggleClass( 'fa-minus fa-plus');
+			pil.toggleClass( 'fa-minus fa-plus' );
+
+			var animDuration = 300; // Duration for list to fold out + timeOut on reenabling click
+
 			$( this ).next( 'ul' ).toggle({
 				effect: 'slide',
 				direction: 'up',
-				duration: 300,
+				duration: animDuration,
 				easing: 'easeInOutQuart'
 			});
+
+			clickDisabled = true;
+			setTimeout( function() { clickDisabled = false; }, animDuration );
 		});
 	};
 
-	var tempoGrpTitle = '#tempoGrpTitle';
-	var sprintGrpTitle = '#sprintGrpTitle';
-	var brostGrpTitle = '#brostGrpTitle';
-	var bakkeGrpTitle = '#bakkeGrpTitle';
-	var bjergGrpTitle = '#bjergGrpTitle';
-
-	visListe( tempoGrpTitle );
-	visListe( sprintGrpTitle );
-	visListe( brostGrpTitle );
-	visListe( bakkeGrpTitle );
-	visListe( bjergGrpTitle );
+	visListe( '#tempoGrpTitle' );
+	visListe( '#sprintGrpTitle' );
+	visListe( '#brostGrpTitle' );
+	visListe( '#bakkeGrpTitle' );
+	visListe( '#bjergGrpTitle' );
 
 	/* ----- / Vis/skjul kategori-lister ----- */
 
