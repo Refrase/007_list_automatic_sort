@@ -48,7 +48,7 @@ li { padding: $dist-s; position: relative; }
 label { font-weight: normal; padding: $dist-s; }
 
 .headline { margin-top: $dist-xl; }
-.header h3 { margin-bottom: $dist-l; }
+.subheadline { margin-bottom: $dist-l; }
 
 .tilfoj-rytter-blok {
 	position: relative;
@@ -175,4 +175,3 @@ input[type=radio]:checked {
 @media (min-width: 768px) {
 	.rytter-data-grp { padding-right: 0; }
 	.checkboxes label { margin-bottom: $dist-l; } }
-
